@@ -1,10 +1,15 @@
 import path from 'path';
-import webpack from 'webpack';
+import { Configuration as WebpackConfiguration } from 'webpack';
+import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
 // import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
-const config: webpack.Configuration = {
+interface Configuration extends WebpackConfiguration {
+  devServer?: WebpackDevServerConfiguration;
+}
+
+const config: Configuration = {
   name: 'payments',
   mode: isDevelopment ? 'development' : 'production',
   resolve: {
