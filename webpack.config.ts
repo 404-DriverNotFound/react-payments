@@ -16,7 +16,8 @@ const config: Configuration = {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
     alias: {
       // '@ts/*': path.resolve(__dirname, 'src/ts/**'),
-      '@components/*': path.resolve(__dirname, 'src/components/**'),
+      '@components': path.resolve(__dirname, 'src/components/'),
+      "@constant": path.resolve(__dirname, 'src/constant/'),
     },
   },
   entry: {

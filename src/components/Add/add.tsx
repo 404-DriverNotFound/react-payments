@@ -1,5 +1,5 @@
 import React from 'react';
-import FlexCenter from '../FlexCenter/flexCenter';
+import FlexCenter from '@components/FlexCenter/flexCenter'
 import './add.css';
 
 const Add = () => {
