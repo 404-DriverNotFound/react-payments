@@ -1,0 +1,36 @@
+.card {
+  border: 10px solid #b0b0b0;
+  width: 100%;
+  border-radius: 10px;
+  max-width: 300px;
+}
+
+.add {
+  padding: 10px;
+  margin: 20px;
+  border: 10px solid #b0b0b0;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  left: 0;
+  right: 0;
+}
+
+.plus {
+  background: #b0b0b0;
+  height: 60px;
+  position: relative;
+  width: 12px;
+  left: 18px;
+  top: -4px;
+}
+
+.plus:after {
+  background: #b0b0b0;
+  content: "";
+  height: 12px;
+  left: -23px;
+  position: absolute;
+  top: 23px;
+  width: 60px;
+}

@@ -10,19 +10,11 @@
   cursor: pointer;
 }
 
-.primary {
-  background-color: #008CBA;
-}
-
-.secondary {
-  background-color: #e7e7e7;
-  color: black;
-}
-
-.success {
+.active {
   background-color: #4CAF50;
 }
 
-.danger {
-  background-color: #f44336;
+.disabled {
+  background-color: #4CAF50;
+  opacity: 0.5;
 }
