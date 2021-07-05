@@ -1,10 +1,15 @@
 import React from 'react';
+import CardContainer from '@components/share/CardContainer/cardContainer';
 
 const Card = () => {
   return (
-    <div>
-      card
-    </div>
+    <>
+    <CardContainer type={'basic-container'}>
+      <div className={'card'}>
+        card
+      </div>
+    </CardContainer>
+    </>
   )
 };
 

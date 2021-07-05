@@ -1,0 +1,15 @@
+.card-container {
+  width: 100%;
+  height: 180px;
+  border-radius: 10px;
+  max-width: 300px;
+  margin: 10px;
+}
+
+.add-container {
+  border: 10px solid #b0b0b0;
+}
+
+.basic-container {
+  border: 10px solid rgb(223, 223, 223);
+}

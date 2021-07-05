@@ -1,5 +1,5 @@
 import React from 'react';
-import Add from '@components/Add/add';
+import Add from '@components/share/Add/add';
 import Card from '@components/Card/card';
 import './cardList.css';
 
