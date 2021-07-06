@@ -1,8 +1,8 @@
-import React, { ReactChild } from 'react';
+import React  from 'react';
 import './cardContainer.css';
 
 interface CardContainerProps {
-  children: ReactChild;
+  children: JSX.Element | JSX.Element[];
   type: string;
   onClick?: () => void;
   [x:string]: any;
