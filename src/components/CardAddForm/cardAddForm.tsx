@@ -9,8 +9,9 @@ const CardAddForm = () => {
   const [fourthNumbers, setFourthNumbers] = useState('');
   const [expireDate, setExpireDate] = useState('');
   const [publisher, serPublisher] = useState('');
-  const [cvc, setCvc] = useState('');
+  const [cvc, setCVC] = useState('');
   const [password, setPassword] = useState('');
+
   return (
     <>
       <Card
@@ -20,8 +21,6 @@ const CardAddForm = () => {
         fourthNumbers={fourthNumbers}
         expireDate={expireDate}
         publisher={publisher}
-        cvc={cvc}
-        password={password}
       />
       <CardForm
         firstNumbers={firstNumbers}
@@ -34,6 +33,12 @@ const CardAddForm = () => {
         setFourthNumbers={setFourthNumbers}
         expireDate={expireDate}
         setExpireDate={setExpireDate}
+        publisher={publisher}
+        setPublisher={serPublisher}
+        cvc={cvc}
+        setCVC={setCVC}
+        password={password}
+        setPassword={setPassword}
       />
     </>
   );
