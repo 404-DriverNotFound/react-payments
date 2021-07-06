@@ -1,8 +1,8 @@
-import React, { ReactChild } from 'react';
+import React  from 'react';
 import './flexCenter.css';
 
 interface FlexCenterProps {
-  children: ReactChild;
+  children: JSX.Element | JSX.Element[];
 }
 
 const FlexCenter = ({ children }: FlexCenterProps) => {

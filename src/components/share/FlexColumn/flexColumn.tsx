@@ -1,13 +1,13 @@
-import React, { ReactChild } from 'react';
+import React from 'react';
 import './flexColumn.css';
 
 interface FlexColumnProps {
-  children: ReactChild
+  children: JSX.Element | JSX.Element[];
 }
 
 const FlexColumn = ({children}: FlexColumnProps) => {
   return (
-    <div className='flexColumn'>
+    <div className='flex-column'>
       {children}
     </div>
   );
