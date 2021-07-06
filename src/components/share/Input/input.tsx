@@ -7,7 +7,11 @@ interface InputProps {
   [x: string]: any;
 }
 
-const Input = forwardRef(({ purpose = 'input-basic', placeholder = '', ...rest}: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
+const Input = forwardRef(({
+                            purpose = 'input-basic',
+                            placeholder = '',
+                            ...rest
+                          }: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
   return (
     <input ref={ref} className={`input ${purpose}`} placeholder={placeholder} {...rest} />
   );

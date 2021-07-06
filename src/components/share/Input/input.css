@@ -1,16 +1,18 @@
 .input {
   border: none;
   background-color: rgb(213, 213, 213);
-  color: #6a6a6a;
-  padding: 10px;
-  font-size: 20px;
+  color: #4670ff;
+  padding: 10px 0;
+  font-size: 16px;
   border-radius: 4px;
 }
 
 .input-basic {
+  padding: 15px 10px;
 }
 
 .input-number {
+  font-size: 20px;
   text-align: center;
 }
 
