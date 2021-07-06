@@ -2,7 +2,18 @@
   border: none;
   background-color: rgb(213, 213, 213);
   color: #6a6a6a;
-  padding: 15px 40px;
-  font-size: 12px;
+  padding: 10px;
+  font-size: 20px;
   border-radius: 4px;
+}
+
+.input-basic {
+}
+
+.input-number {
+  text-align: center;
+}
+
+.input-secret {
+  -webkit-text-security: disc;
 }
