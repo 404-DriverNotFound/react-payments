@@ -11,6 +11,7 @@ interface CardNumberFormProps {
   setSecondNumbers: (value: string) => void;
   setThirdNumbers: (value: string) => void;
   setFourthNumbers: (value: string) => void;
+  firstNumberInput: React.RefObject<HTMLInputElement>;
   secondNumberInput: React.RefObject<HTMLInputElement>;
   thirdNumberInput: React.RefObject<HTMLInputElement>;
   fourthNumberInput: React.RefObject<HTMLInputElement>;
@@ -26,6 +27,7 @@ const CardNumberForm = ({
                           setSecondNumbers,
                           setThirdNumbers,
                           thirdNumbers,
+                          firstNumberInput,
                           secondNumberInput,
                           thirdNumberInput,
                           fourthNumberInput,
@@ -53,6 +55,7 @@ const CardNumberForm = ({
       <Label value={'카드번호'}>
         <Input
           autoFocus
+          ref={firstNumberInput}
           purpose={'input-number'}
           maxLength={'4'}
           size={'4'}
