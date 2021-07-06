@@ -18,6 +18,7 @@ const config: Configuration = {
       // '@ts/*': path.resolve(__dirname, 'src/ts/**'),
       '@components': path.resolve(__dirname, 'src/components/'),
       "@constant": path.resolve(__dirname, 'src/constant/'),
+      "@utils": path.resolve(__dirname, 'src/utils/')
     },
   },
   entry: {
