@@ -31,6 +31,4 @@ Digit.args = {
   className: '',
   type: 'number',
   value: '1',
-  maxlength: '1',
-  readonly: true,
 };

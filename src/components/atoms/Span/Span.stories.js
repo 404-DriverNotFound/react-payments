@@ -14,5 +14,5 @@ const Template = (args) => <Span {...args} />;
 export const Text = Template.bind({});
 Text.args = {
   className: '',
-  text: 'This is span',
+  children: 'This is span',
 };

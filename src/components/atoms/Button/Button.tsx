@@ -5,9 +5,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
-  padding: 0.75rem 1rem;
+  margin: 0.2em;
+  padding: 1em;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 0.5em;
   cursor: pointer;
   outline: none;
   background-color: ${({ color }) => (color === 'default' ? '#eee' : '#00bcd4')};
