@@ -1,7 +1,7 @@
 import React from 'react';
 import FlexCenter from '@components/share/FlexCenter/flexCenter'
-import CardContainer from '../CardContainer/cardContainer';
-import View from '@constant/constant';
+import CardContainer from '@components/share/CardContainer/cardContainer';
+import { View } from '@constant/constant';
 import './add.css';
 
 interface AddProps {

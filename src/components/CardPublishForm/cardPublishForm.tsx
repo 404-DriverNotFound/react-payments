@@ -10,7 +10,7 @@ interface CardPublisherFormProps {
 
 const CardPublishForm = ({ publisher, setPublisher, publisherInput }: CardPublisherFormProps) => {
   const handlePublisherChange = ({ target }: { target: HTMLInputElement }) => {
-    // TODO publisher 검증
+
     setPublisher(target?.value);
   };
   

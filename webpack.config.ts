@@ -17,8 +17,9 @@ const config: Configuration = {
     alias: {
       // '@ts/*': path.resolve(__dirname, 'src/ts/**'),
       '@components': path.resolve(__dirname, 'src/components/'),
-      "@constant": path.resolve(__dirname, 'src/constant/'),
-      "@utils": path.resolve(__dirname, 'src/utils/')
+      '@constant': path.resolve(__dirname, 'src/constant/'),
+      '@utils': path.resolve(__dirname, 'src/utils/'),
+      '@typesCards': path.resolve(__dirname, 'src/typesCards/'),
     },
   },
   entry: {

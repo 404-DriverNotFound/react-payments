@@ -3,6 +3,7 @@ import Input from '@components/share/Input/input';
 import Label from '@components/share/Label/label';
 
 interface CardNumberFormProps {
+  setBrandName: (value: string) => void;
   firstNumbers: string;
   secondNumbers: string;
   thirdNumbers: string;
@@ -19,76 +20,95 @@ interface CardNumberFormProps {
 }
 
 const CardNumberForm = ({
-                          firstNumbers,
-                          secondNumbers,
-                          fourthNumbers,
-                          setFirstNumbers,
-                          setFourthNumbers,
-                          setSecondNumbers,
-                          setThirdNumbers,
-                          thirdNumbers,
-                          firstNumberInput,
-                          secondNumberInput,
-                          thirdNumberInput,
-                          fourthNumberInput,
-                          expireDateInput,
-                        }: CardNumberFormProps) => {
+  setBrandName,
+  firstNumbers,
+  secondNumbers,
+  fourthNumbers,
+  setFirstNumbers,
+  setFourthNumbers,
+  setSecondNumbers,
+  setThirdNumbers,
+  thirdNumbers,
+  firstNumberInput,
+  secondNumberInput,
+  thirdNumberInput,
+  fourthNumberInput,
+  expireDateInput,
+}: CardNumberFormProps) => {
+  const chooseCardBrand = (cardNumber: string) => {
+    const brandNames: Record<string, string> = {
+      '111111': 'blue-card',
+      '222222': 'red-card',
+      '333333': 'purple-card',
+    };
+    let brandName = 'default-card';
+    if (brandNames.hasOwnProperty(cardNumber)) {
+      brandName = brandNames[cardNumber];
+    }
+    setBrandName(brandName);
+  };
+
   const handleFirstChange = ({ target }: { target: HTMLInputElement }) => {
     setFirstNumbers(target?.value);
     target?.value.length === 4 && secondNumberInput.current?.focus();
   };
   const handleSecondChange = ({ target }: { target: HTMLInputElement }) => {
-    firstNumbers.length === 4 && setSecondNumbers(target?.value);
+    setSecondNumbers(target?.value);
+    target?.value.length === 2 && chooseCardBrand(firstNumbers + target?.value);
     target?.value.length === 4 && thirdNumberInput.current?.focus();
   };
   const handleThirdChange = ({ target }: { target: HTMLInputElement }) => {
-    secondNumbers.length === 4 && setThirdNumbers(target?.value);
+    setThirdNumbers(target?.value);
     target?.value.length === 4 && fourthNumberInput.current?.focus();
   };
   const handleFourthChange = ({ target }: { target: HTMLInputElement }) => {
-    thirdNumbers.length === 4 && setFourthNumbers(target?.value);
+    setFourthNumbers(target?.value);
+    // TODO 마지막 번호까지 입력되었는데 알 수 없는 카드 브랜드인 경우
+    // 여기서 모달창을 띄워 브랜드를 선택한다.
     target?.value.length === 4 && expireDateInput.current?.focus();
   };
 
   return (
     <>
       <Label value={'카드번호'}>
-        <Input
-          autoFocus
-          ref={firstNumberInput}
-          purpose={'input-number'}
-          maxLength={'4'}
-          size={'4'}
-          value={firstNumbers}
-          onChange={handleFirstChange}
-        />
-        <span>-</span>
-        <Input
-          ref={secondNumberInput}
-          purpose={'input-number'}
-          maxLength={'4'}
-          size={'4'}
-          value={secondNumbers}
-          onChange={handleSecondChange}
-        />
-        <span>-</span>
-        <Input
-          ref={thirdNumberInput}
-          purpose={'input-number input-secret'}
-          maxLength={'4'}
-          size={'4'}
-          value={thirdNumbers}
-          onChange={handleThirdChange}
-        />
-        <span>-</span>
-        <Input
-          ref={fourthNumberInput}
-          purpose={'input-number input-secret'}
-          maxLength={'4'}
-          size={'4'}
-          value={fourthNumbers}
-          onChange={handleFourthChange}
-        />
+        <div>
+          <Input
+            autoFocus
+            ref={firstNumberInput}
+            purpose={'input-number'}
+            maxLength={'4'}
+            size={'4'}
+            value={firstNumbers}
+            onChange={handleFirstChange}
+          />
+          <span>-</span>
+          <Input
+            ref={secondNumberInput}
+            purpose={'input-number'}
+            maxLength={'4'}
+            size={'4'}
+            value={secondNumbers}
+            onChange={handleSecondChange}
+          />
+          <span>-</span>
+          <Input
+            ref={thirdNumberInput}
+            purpose={'input-number input-secret'}
+            maxLength={'4'}
+            size={'4'}
+            value={thirdNumbers}
+            onChange={handleThirdChange}
+          />
+          <span>-</span>
+          <Input
+            ref={fourthNumberInput}
+            purpose={'input-number input-secret'}
+            maxLength={'4'}
+            size={'4'}
+            value={fourthNumbers}
+            onChange={handleFourthChange}
+          />
+        </div>
       </Label>
     </>
   );

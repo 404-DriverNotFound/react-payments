@@ -1,0 +1,40 @@
+.card {
+    font-size: 20px;
+    height: 180px;
+    box-shadow: 5px 5px 2px 1px #666666;
+    border-radius: 4px;
+}
+
+.default-card {
+    color: #000000;
+    background: linear-gradient(to bottom right, #979797, #ffffff);
+}
+
+.purple-card {
+    color: #ffffff;
+    background: linear-gradient(to bottom right, #560bad, #f72585);
+}
+
+.blue-card {
+    color: #ffffff;
+    background: linear-gradient(to bottom right, #39A2DB, #E8F0F2);
+}
+
+.red-card {
+    color: #ffffff;
+    background: linear-gradient(to bottom right, #AC0D0D, #FBE6C2);
+}
+
+.card-number {
+    font-weight: bold;
+}
+
+.expire-date {
+    padding-top: 10px;
+    padding-left: 20px;
+}
+
+.publisher {
+    padding-top: 10px;
+    padding-right: 20px;
+}

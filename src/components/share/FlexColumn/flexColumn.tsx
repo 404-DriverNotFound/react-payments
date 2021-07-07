@@ -2,7 +2,7 @@ import React from 'react';
 import './flexColumn.css';
 
 interface FlexColumnProps {
-  children: JSX.Element | JSX.Element[];
+  children: React.ReactNode;
 }
 
 const FlexColumn = ({children}: FlexColumnProps) => {

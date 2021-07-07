@@ -3,16 +3,17 @@ import './button.css';
 
 interface ButtonProps {
   variant: string;
-  children: string;
+  value: string;
+  position: string;
   [x: string]: any;
 }
 
-const Button = ({ variant = 'primary', children = '다음', ...rest}: ButtonProps) => {
+const Button = ({ variant = 'disabled', value = '다음', position = 'bottom-right', ...rest }: ButtonProps) => {
   return (
-    <button className={`button ${variant}`} {...rest}>
-      {children}
+    <button className={`button ${variant} ${position}`} {...rest}>
+      {value}
     </button>
-  )
+  );
 };
 
 export default Button;

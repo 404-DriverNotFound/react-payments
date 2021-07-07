@@ -2,7 +2,7 @@ import React  from 'react';
 import './flexCenter.css';
 
 interface FlexCenterProps {
-  children: JSX.Element | JSX.Element[];
+  children: React.ReactNode;
 }
 
 const FlexCenter = ({ children }: FlexCenterProps) => {

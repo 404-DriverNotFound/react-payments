@@ -1,6 +1,8 @@
 enum View {
   List,
   Add
-};
+}
 
-export default View;
+const THIS_YEAR = 2021;
+
+export { View, THIS_YEAR };
