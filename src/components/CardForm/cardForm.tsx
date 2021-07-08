@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import CardNumberForm from '@components/CardNumberForm/cardNumberForm';
 import CardExpireDateForm from '@components/CardExpireDateForm/cardExpireDateForm';
 import CardPublishForm from '@components/CardPublishForm/cardPublishForm';
@@ -25,6 +25,7 @@ interface CardFormProps {
   password: string;
   setPassword: (value: string) => void;
   setIsComplete: (value: boolean) => void;
+  setIsMaskingInput: (value: boolean) => void;
 }
 
 const CardForm = ({
@@ -46,7 +47,10 @@ const CardForm = ({
   password,
   setPassword,
   setIsComplete,
+  setIsMaskingInput,
 }: CardFormProps) => {
+
+
   const firstNumberInput = useRef<HTMLInputElement>(null);
   const secondNumberInput = useRef<HTMLInputElement>(null);
   const thirdNumberInput = useRef<HTMLInputElement>(null);
@@ -103,6 +107,7 @@ const CardForm = ({
         thirdNumberInput={thirdNumberInput}
         fourthNumberInput={fourthNumberInput}
         expireDateInput={expireDateInput}
+        setIsMaskingInput={setIsMaskingInput}
       />
       <CardExpireDateForm
         expireDate={expireDate}

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Input from '@components/share/Input/input';
 import Label from '@components/share/Label/label';
+import VirtualKeyboard from '@components/VirtualKeyboard/virtualKeyboard';
 
 interface CardNumberFormProps {
   setBrandName: (value: string) => void;
@@ -17,6 +18,7 @@ interface CardNumberFormProps {
   thirdNumberInput: React.RefObject<HTMLInputElement>;
   fourthNumberInput: React.RefObject<HTMLInputElement>;
   expireDateInput: React.RefObject<HTMLInputElement>;
+  setIsMaskingInput: (value: boolean) => void;
 }
 
 const CardNumberForm = ({
@@ -34,7 +36,9 @@ const CardNumberForm = ({
   thirdNumberInput,
   fourthNumberInput,
   expireDateInput,
+  setIsMaskingInput
 }: CardNumberFormProps) => {
+
   const chooseCardBrand = (cardNumber: string) => {
     const brandNames: Record<string, string> = {
       '111111': 'blue-card',
@@ -55,7 +59,10 @@ const CardNumberForm = ({
   const handleSecondChange = ({ target }: { target: HTMLInputElement }) => {
     setSecondNumbers(target?.value);
     target?.value.length === 2 && chooseCardBrand(firstNumbers + target?.value);
-    target?.value.length === 4 && thirdNumberInput.current?.focus();
+    if (target?.value.length === 4) {
+      setIsMaskingInput(true);
+      thirdNumberInput.current?.focus();
+    }
   };
   const handleThirdChange = ({ target }: { target: HTMLInputElement }) => {
     setThirdNumbers(target?.value);
@@ -65,7 +72,10 @@ const CardNumberForm = ({
     setFourthNumbers(target?.value);
     // TODO 마지막 번호까지 입력되었는데 알 수 없는 카드 브랜드인 경우
     // 여기서 모달창을 띄워 브랜드를 선택한다.
-    target?.value.length === 4 && expireDateInput.current?.focus();
+    if (target?.value.length === 4) {
+      setIsMaskingInput(false);
+      expireDateInput.current?.focus();
+    }
   };
 
   return (

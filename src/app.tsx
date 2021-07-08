@@ -3,6 +3,7 @@ import { View } from '@constant/constant';
 import CardList from '@components/CardList/cardList';
 import CardAddForm from '@components/CardAddForm/cardAddForm';
 import Card from '@typesCards/types.cards';
+import './app.css';
 
 const App = () => {
   const [currentView, setCurrentView] = useState<View>(View.List);

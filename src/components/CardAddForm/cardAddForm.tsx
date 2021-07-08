@@ -1,9 +1,11 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import CardTemplate from '@components/CardTemplate/cardTemplate';
 import CardForm from '@components/CardForm/cardForm';
 import CardAddComplete from '@components/CardAddComplete/cardAddComplete';
 import { View } from '@constant/constant';
 import Card from '@typesCards/types.cards';
+import VirtualKeyboard from '@components/VirtualKeyboard/virtualKeyboard';
+import { getRandomNumbers } from '@utils/utils';
 
 interface CardAddFormProps {
   cardList: Card[];
@@ -16,17 +18,25 @@ const CardAddForm = ({
   setCurrentView,
   setCardList,
 }: CardAddFormProps) => {
-  const [brandName, setBrandName] = useState('purple-card');
-  const [firstNumbers, setFirstNumbers] = useState('');
-  const [secondNumbers, setSecondNumbers] = useState('');
-  const [thirdNumbers, setThirdNumbers] = useState('');
-  const [fourthNumbers, setFourthNumbers] = useState('');
-  const [expireDate, setExpireDate] = useState('');
-  const [publisher, serPublisher] = useState('');
-  const [cvc, setCVC] = useState('');
-  const [password, setPassword] = useState('');
+  const [brandName, setBrandName] = useState<string>('purple-card');
+  const [firstNumbers, setFirstNumbers] = useState<string>('');
+  const [secondNumbers, setSecondNumbers] = useState<string>('');
+  const [thirdNumbers, setThirdNumbers] = useState<string>('');
+  const [fourthNumbers, setFourthNumbers] = useState<string>('');
+  const [expireDate, setExpireDate] = useState<string>('');
+  const [publisher, serPublisher] = useState<string>('');
+  const [cvc, setCVC] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
-  const [isComplete, setIsComplete] = useState(false);
+  const [isComplete, setIsComplete] = useState<boolean>(false);
+
+  const [isMaskingInput, setIsMaskingInput] = useState<boolean>(false);
+
+  const [keyboard, setKeyboard] = useState<number[]>([]);
+
+  useEffect(() => {
+    setKeyboard(getRandomNumbers(20));
+  }, []);
 
   return (
     <>
@@ -59,8 +69,14 @@ const CardAddForm = ({
           password={password}
           setPassword={setPassword}
           setIsComplete={setIsComplete}
+          setIsMaskingInput={setIsMaskingInput}
         />
       )}
+      {isMaskingInput &&
+        <VirtualKeyboard
+          position={'keyboard-absolute'}
+          keyboard={keyboard}
+        />}
       {isComplete && (
         <CardAddComplete
           cardList={cardList}
