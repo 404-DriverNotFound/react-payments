@@ -7,6 +7,7 @@ import Card from '@typesCards/types.cards';
 
 interface CardAddCompleteProps {
   cardList: Card[];
+  brandName: string;
   firstNumbers: string;
   secondNumbers: string;
   thirdNumbers: string;
@@ -21,6 +22,7 @@ interface CardAddCompleteProps {
 
 const CardAddComplete = ({
   cardList,
+  brandName,
   firstNumbers,
   secondNumbers,
   thirdNumbers,
@@ -32,13 +34,14 @@ const CardAddComplete = ({
   cvc,
   password,
 }: CardAddCompleteProps) => {
-  const [nickname, setNickname] = useState('');
+  const [nickname, setNickname] = useState('기본 카드');
   const handleNicknameChange = ({ target }: { target: HTMLInputElement }) => {
     setNickname(target.value);
   };
   const goToCardList = (event: Event) => {
     event.preventDefault();
     const newCard: Card = {
+      cardBrand: brandName,
       cardNumber: [firstNumbers, secondNumbers, thirdNumbers, fourthNumbers],
       expDate: expireDate,
       publisher,

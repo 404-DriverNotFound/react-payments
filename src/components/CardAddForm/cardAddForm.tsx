@@ -28,7 +28,6 @@ const CardAddForm = ({
 
   const [isComplete, setIsComplete] = useState(false);
 
-  console.log(brandName);
   return (
     <>
       <CardTemplate
@@ -65,6 +64,7 @@ const CardAddForm = ({
       {isComplete && (
         <CardAddComplete
           cardList={cardList}
+          brandName={brandName}
           firstNumbers={firstNumbers}
           secondNumbers={secondNumbers}
           thirdNumbers={thirdNumbers}

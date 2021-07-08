@@ -2,7 +2,7 @@ import React  from 'react';
 import './cardContainer.css';
 
 interface CardContainerProps {
-  children: JSX.Element | JSX.Element[];
+  children: React.ReactNode;
   type: string;
   onClick?: () => void;
   [x:string]: any;
