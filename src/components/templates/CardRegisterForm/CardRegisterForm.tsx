@@ -167,7 +167,7 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
         onChange={handleCardNumberChange}
       />
       <InlineBlockDiv>
-        <label>카드 유효기간</label>
+        <label htmlFor="card-expiration">카드 유효기간</label>
         <InputContainer className="card-register__input-container--card-expiration">
           <Input
             className="card-register__input--card-expiration"
@@ -196,7 +196,7 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
         </InputContainer>
       </InlineBlockDiv>
       <br />
-      <label>카드 소유자 이름</label>
+      <label htmlFor="card-owner">카드 소유자 이름</label>
       <InputContainer className="card-register__input-container--card-owner">
         <Input
           className="card-register__input--card-owner"
