@@ -1,7 +1,7 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable react/jsx-props-no-spreading */
 // eslint-disable-next-line no-use-before-define
-import React from 'react';
+import React, { ForwardedRef } from 'react';
 import styled from 'styled-components';
 
 const StyledInput = styled.input`
@@ -48,12 +48,13 @@ type InputProps = {
   required?: boolean,
 };
 
-const Input = ({
+const Input = React.forwardRef(({
   className, type, name, value, onChange, placeholder, required, ...rest
-}: InputProps) => {
+}: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
   return (
     <StyledInput
       className={className}
+      ref={ref}
       type={type}
       name={name}
       value={value}
@@ -63,7 +64,7 @@ const Input = ({
       {...rest}
     />
   );
-};
+});
 
 Input.defaultProps = {
   className: '',

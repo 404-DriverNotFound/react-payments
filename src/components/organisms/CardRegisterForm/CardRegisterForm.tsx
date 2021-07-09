@@ -3,7 +3,7 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable arrow-body-style */
 // eslint-disable-next-line no-use-before-define
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
 import Button from '../../atoms/Button/Button';
@@ -44,20 +44,83 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
     'card-password__2': '',
   });
 
-  const handleChange = (event: React.ChangeEvent) => {
+  type refObjType = {
+    [key: string]: React.RefObject<HTMLInputElement> | React.RefObject<HTMLButtonElement>;
+  };
+
+  const refs: refObjType = {
+    'card-number__1': useRef<HTMLInputElement>(null),
+    'card-number__2': useRef<HTMLInputElement>(null),
+    'card-number__3': useRef<HTMLInputElement>(null),
+    'card-number__4': useRef<HTMLInputElement>(null),
+    'card-expiration': useRef<HTMLInputElement>(null),
+    'card-cvc': useRef<HTMLInputElement>(null),
+    'card-owner': useRef<HTMLInputElement>(null),
+    'card-password__1': useRef<HTMLInputElement>(null),
+    'card-password__2': useRef<HTMLInputElement>(null),
+    'submit-button': useRef<HTMLButtonElement>(null),
+  };
+
+  const handleCardNumberChange = (event: React.ChangeEvent) => {
     const { name, value } = event.target as HTMLInputElement;
-    if (name.includes('card-number') && value.length > 4) {
+    if (value.length > 4) {
       return;
-    } if (name.includes('card-cvc') && value.length > 3) {
+    } if (value.length === 4 && name === 'card-number__4') {
+      refs['card-expiration'].current?.focus();
+    } else if (value.length === 4) {
+      refs[`card-number__${Number(name.substr(-1)) + 1}`].current?.focus();
+    }
+    setValues({ ...values, [name]: value });
+  };
+
+  const handleExpirationChange = (event: React.ChangeEvent) => {
+    const { name, value } = event.target as HTMLInputElement;
+    if (value.length > 5) {
       return;
-    } if (name.includes('card-password') && value.length > 1) {
+    } if (value.length === 2 && values[name].length === 1) {
+      setValues({ ...values, [name]: `${value}/` });
       return;
-    } // TODO: isValidDate < 사용해서 검증할 것
+    } if (value.length === 3 && values[name].length === 2) {
+      setValues({ ...values, [name]: `${value.substr(0, 2)}/${value[2]}` });
+      return;
+    } if (value.length === 3 && values[name].length === 4) {
+      setValues({ ...values, [name]: value.substr(0, 2) });
+      return;
+    } if (value.length === 5) {
+      refs['card-cvc'].current?.focus();
+    }
+    setValues({ ...values, [name]: value });
+  };
+
+  const handleCVCChange = (event: React.ChangeEvent) => {
+    const { name, value } = event.target as HTMLInputElement;
+    if (value.length > 3) {
+      return;
+    } if (value.length === 3) {
+      refs['card-owner'].current?.focus();
+    }
+    setValues({ ...values, [name]: value });
+  };
+
+  const handleOwnerNameChange = (event: React.ChangeEvent) => {
+    const { name, value } = event.target as HTMLInputElement;
+    setValues({ ...values, [name]: value });
+  };
+
+  const handlePasswordChange = (event: React.ChangeEvent) => {
+    const { name, value } = event.target as HTMLInputElement;
+    if (value.length > 1) {
+      return;
+    }
+    if (name === 'card-password__1') {
+      refs['card-password__2'].current?.focus();
+    } else {
+      refs['submit-button'].current?.focus();
+    }
     setValues({ ...values, [name]: value });
   };
 
   // TODO: 반복되는 props 묶어 쓸 방법 있는지 알아보기
-  // TODO: ref 이용하여 focus 자동으로 이동시켜주기
 
   return (
     <StyledForm className={className}>
@@ -70,9 +133,10 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
           type="number"
           name="card-number__1"
           value={values['card-number__1']}
-          onChange={handleChange}
-          min="1000"
+          onChange={handleCardNumberChange}
           key="input__1"
+          ref={refs['card-number__1']}
+          autoFocus
           required
         />
         <Span className="card-register__span--card-number" key="span__1">-</Span>
@@ -81,9 +145,9 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
           type="number"
           name="card-number__2"
           value={values['card-number__2']}
-          onChange={handleChange}
-          min="1000"
+          onChange={handleCardNumberChange}
           key="input__2"
+          ref={refs['card-number__2']}
           required
         />
         <Span className="card-register__span--card-number" key="span__2">-</Span>
@@ -92,9 +156,9 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
           type="number"
           name="card-number__3"
           value={values['card-number__3']}
-          onChange={handleChange}
-          min="1000"
+          onChange={handleCardNumberChange}
           key="input__3"
+          ref={refs['card-number__3']}
           required
         />
         <Span className="card-register__span--card-number" key="span__3">-</Span>
@@ -103,9 +167,9 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
           type="number"
           name="card-number__4"
           value={values['card-number__4']}
-          onChange={handleChange}
-          min="1000"
+          onChange={handleCardNumberChange}
           key="input__4"
+          ref={refs['card-number__4']}
           required
         />
       </InputContainer>
@@ -116,7 +180,8 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
             className="card-register__input--card-expiration"
             name="card-expiration"
             value={values['card-expiration']}
-            onChange={handleChange}
+            onChange={handleExpirationChange}
+            ref={refs['card-expiration']}
             required
           />
         </InputContainer>
@@ -130,8 +195,8 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
             name="card-cvc"
             value={values['card-cvc']}
             placeholder="CVC"
-            onChange={handleChange}
-            min="100"
+            onChange={handleCVCChange}
+            ref={refs['card-cvc']}
             required
           />
         </InputContainer>
@@ -144,8 +209,9 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
           type="text"
           name="card-owner"
           value={values['card-owner']}
-          onChange={handleChange}
+          onChange={handleOwnerNameChange}
           placeholder="카드에 표시된 이름과 동일하게 입력하세요"
+          ref={refs['card-owner']}
           required
         />
       </InputContainer>
@@ -158,7 +224,8 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
             type="password"
             name="card-password__1"
             value={values['card-password__1']}
-            onChange={handleChange}
+            onChange={handlePasswordChange}
+            ref={refs['card-password__1']}
             required
           />
         </InputContainer>
@@ -168,14 +235,22 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
             type="password"
             name="card-password__2"
             value={values['card-password__2']}
-            onChange={handleChange}
+            onChange={handlePasswordChange}
+            ref={refs['card-password__2']}
             required
           />
         </InputContainer>
         * *
       </label>
       <br />
-      <Button className="card-register__button--submit" color="blue" type="submit">다음</Button>
+      <Button
+        className="card-register__button--submit"
+        color="blue"
+        type="submit"
+        ref={refs['submit-button']}
+      >
+        다음
+      </Button>
       <Button className="card-register__button--cancel">취소</Button>
     </StyledForm>
   );

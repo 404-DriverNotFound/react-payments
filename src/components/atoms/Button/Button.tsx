@@ -1,7 +1,7 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable react/jsx-props-no-spreading */
 // eslint-disable-next-line no-use-before-define
-import React from 'react';
+import React, { ForwardedRef } from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
@@ -27,13 +27,14 @@ type ButtonProps = {
   children?: React.ReactNode,
 };
 
-const Button = ({
+const Button = React.forwardRef(({
   className, color, type, onClick, children,
-}: ButtonProps) => {
+}: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
   return (
   // eslint-disable-next-line react/button-has-type
     <StyledButton
       className={className}
+      ref={ref}
       type={type}
       onClick={onClick}
       color={color}
@@ -41,7 +42,7 @@ const Button = ({
       {children}
     </StyledButton>
   );
-};
+});
 
 Button.defaultProps = {
   className: '',
