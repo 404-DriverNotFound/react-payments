@@ -1,0 +1,22 @@
+.input {
+  border: none;
+  background-color: rgb(213, 213, 213);
+  color: #4670ff;
+  padding: 10px 0;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+.input-basic {
+  padding: 15px 10px;
+}
+
+.input-number {
+  font-size: 20px;
+  width: 85px;
+  text-align: center;
+}
+
+.input-secret {
+  -webkit-text-security: disc;
+}

@@ -1,0 +1,9 @@
+.card-chip {
+    background: #c6a914;
+    border: 1px solid #c6a914;
+    border-radius: 4px;
+    margin-top: 50px;
+    margin-left: 10px;
+    padding-top: 40px;
+    max-width: 60px;
+}

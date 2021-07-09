@@ -1,0 +1,25 @@
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.active {
+  background-color: #9b59ff;
+}
+
+.disabled {
+  background-color: #4CAF50;
+  opacity: 0.5;
+}
+
+.bottom-right {
+  position: fixed;
+  right: 5%;
+  bottom: 5%;
+}

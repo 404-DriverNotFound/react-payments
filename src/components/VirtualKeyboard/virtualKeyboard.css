@@ -1,0 +1,45 @@
+.virtual-keyboard-container {
+  width: 100%;
+  height: 100%;
+  background: #ababab;
+  opacity: 0.8;
+}
+
+.container-absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.virtual-keyboard-modal {
+  border-top: 2px solid #86c0ff;
+  padding: 5px 0;
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  width: 100%;
+  height: 300px;
+  background-color: white;
+  text-align: center;
+  font-size: 60px;
+}
+
+.keyboard-absolute {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.keyboard-normal {
+  position: relative;
+  bottom: 0;
+  left: -8px;
+  width: 104%;
+}
+
+.keyboard-item {
+  border: 2px solid #86c0ff;
+  border-radius: 4px;
+  margin: 1px 1px;
+}

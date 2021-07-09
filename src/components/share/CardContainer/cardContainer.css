@@ -1,0 +1,16 @@
+.card-container {
+  width: 100%;
+  height: 180px;
+  border-radius: 10px;
+}
+
+.add-container {
+  border: 10px solid #b0b0b0;
+  margin-top: 20px;
+  width: 95%;
+}
+
+.basic-container {
+  width: 100%;
+  border: 1px solid white;
+}
