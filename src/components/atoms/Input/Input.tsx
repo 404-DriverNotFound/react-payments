@@ -27,6 +27,14 @@ const StyledInput = styled.input`
     return '';
   }};
 
+  -webkit-text-security: ${({ className }) => (
+    (className?.includes('card-register__input--card-number__3')
+    || className?.includes('card-register__input--card-number__4')
+    || className?.includes('card-register__input--card-password')
+    || className?.includes('card-register__input--card-cvc'))
+      ? 'disc' : ''
+  )};
+  
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -46,10 +54,11 @@ type InputProps = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
   placeholder?: string,
   required?: boolean,
+  autoFocus?: boolean,
 };
 
 const Input = React.forwardRef(({
-  className, type, name, value, onChange, placeholder, required, ...rest
+  className, type, name, value, onChange, placeholder, required, autoFocus, ...rest
 }: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
   return (
     <StyledInput
@@ -72,6 +81,7 @@ Input.defaultProps = {
   value: '',
   placeholder: '',
   required: false,
+  autoFocus: false,
 };
 
 export default Input;

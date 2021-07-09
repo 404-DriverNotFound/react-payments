@@ -23,7 +23,7 @@ type ButtonProps = {
   color?: 'default' | 'blue',
   type?: 'button' | 'submit' | 'reset',
   // eslint-disable-next-line no-unused-vars
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void,
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void,
   children?: React.ReactNode,
 };
 
@@ -48,7 +48,6 @@ Button.defaultProps = {
   className: '',
   color: 'default',
   type: 'button',
-  onClick: null,
   children: null,
 };
 

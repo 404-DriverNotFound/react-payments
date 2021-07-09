@@ -6,19 +6,20 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
-import Button from '../../atoms/Button/Button';
-import Span from '../../atoms/Span/Span';
 import Input from '../../atoms/Input/Input';
 import Card from '../../molecules/Card/Card';
 import InputContainer from '../../molecules/InputContainer/InputContainer';
+import CardRegisterNumberInputs from '../../organisms/CardRegister/RegisterNumberInputs/RegisterNumberInputs';
+import CardRegisterButtons from '../../organisms/CardRegister/RegisterButtons/RegisterButtons';
 
 const StyledForm = styled.form`
+  float: center;
   min-width: 22em;
   max-width: 30em;
   background-color: #fff;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.25);
   border-radius: 1rem;
-  margin: 3rem 10%;
+  margin: 3rem auto;
   padding: 2rem;
 `;
 
@@ -31,8 +32,12 @@ type CardRegisterFormProps = {
   className?: string,
 };
 
+type valueObjType = {
+  [key: string]: string;
+};
+
 const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
-  const [values, setValues] = useState({
+  const [values, setValues] = useState<valueObjType>({
     'card-number__1': '',
     'card-number__2': '',
     'card-number__3': '',
@@ -45,7 +50,7 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
   });
 
   type refObjType = {
-    [key: string]: React.RefObject<HTMLInputElement> | React.RefObject<HTMLButtonElement>;
+    [key: string]: React.RefObject<any>;
   };
 
   const refs: refObjType = {
@@ -120,60 +125,48 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
     setValues({ ...values, [name]: value });
   };
 
-  // TODO: 반복되는 props 묶어 쓸 방법 있는지 알아보기
+  const isPositiveIntWithLen = (len: number, ...arr: string[]): boolean => {
+    const isPositiveInt: RegExp = new RegExp(`^[0-9]{${len}}$`);
+    return (
+      arr.every((str: string) => (isPositiveInt.test(str)))
+    );
+  };
+
+  const handleSubmit = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!isPositiveIntWithLen(4, values['card-number__1'], values['card-number__2'],
+      values['card-number__3'], values['card-number__4'])) {
+      // TODO: 에러 UI 표시
+      return;
+    } if (!isPositiveIntWithLen(3, values['card-cvc'])) {
+      // TODO: 에러 UI 표시
+      return;
+    } if (!isPositiveIntWithLen(2, values['card-expiration'].substr(0, 2), values['card-expiration'].substr(3))) {
+      // TODO: 에러 UI 표시
+      return;
+    } if (!isPositiveIntWithLen(1, values['card-password__1'], values['card-password__2'])) {
+      // TODO: 에러 UI 표시
+      // eslint-disable-next-line no-useless-return
+      return;
+    }
+    // TODO: 제출 처리
+  };
 
   return (
     <StyledForm className={className}>
       <Card className="card-register__card-preview" />
-      <br />
-      <label>카드 번호</label>
-      <InputContainer className="card-register__input-container--card-number">
-        <Input
-          className="card-register__input--card-number"
-          type="number"
-          name="card-number__1"
-          value={values['card-number__1']}
-          onChange={handleCardNumberChange}
-          key="input__1"
-          ref={refs['card-number__1']}
-          autoFocus
-          required
-        />
-        <Span className="card-register__span--card-number" key="span__1">-</Span>
-        <Input
-          className="card-register__input--card-number"
-          type="number"
-          name="card-number__2"
-          value={values['card-number__2']}
-          onChange={handleCardNumberChange}
-          key="input__2"
-          ref={refs['card-number__2']}
-          required
-        />
-        <Span className="card-register__span--card-number" key="span__2">-</Span>
-        <Input
-          className="card-register__input--card-number"
-          type="number"
-          name="card-number__3"
-          value={values['card-number__3']}
-          onChange={handleCardNumberChange}
-          key="input__3"
-          ref={refs['card-number__3']}
-          required
-        />
-        <Span className="card-register__span--card-number" key="span__3">-</Span>
-        <Input
-          className="card-register__input--card-number"
-          type="number"
-          name="card-number__4"
-          value={values['card-number__4']}
-          onChange={handleCardNumberChange}
-          key="input__4"
-          ref={refs['card-number__4']}
-          required
-        />
-      </InputContainer>
-      <InlineBlockDiv position="left">
+      <CardRegisterNumberInputs
+        classNames={{
+          container: 'card-register__input-container--card-number',
+          input: 'card-register__input--card-number',
+          span: 'card-register__span--card-number',
+        }}
+        label="카드 번호"
+        values={values}
+        refs={refs}
+        onChange={handleCardNumberChange}
+      />
+      <InlineBlockDiv>
         <label>카드 유효기간</label>
         <InputContainer className="card-register__input-container--card-expiration">
           <Input
@@ -181,12 +174,13 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
             name="card-expiration"
             value={values['card-expiration']}
             onChange={handleExpirationChange}
+            placeholder="MM/YY"
             ref={refs['card-expiration']}
             required
           />
         </InputContainer>
       </InlineBlockDiv>
-      <InlineBlockDiv position="right">
+      <InlineBlockDiv>
         <label htmlFor="card-cvc">뒷면 보안코드 3자리</label>
         <InputContainer className="card-register__input-container--card-cvc">
           <Input
@@ -232,7 +226,7 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
         <InputContainer className="card-register__input-container--card-password" key="card-password__2">
           <Input
             className="card-register__input--card-password"
-            type="password"
+            type="number"
             name="card-password__2"
             value={values['card-password__2']}
             onChange={handlePasswordChange}
@@ -242,16 +236,15 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
         </InputContainer>
         * *
       </label>
-      <br />
-      <Button
-        className="card-register__button--submit"
-        color="blue"
-        type="submit"
-        ref={refs['submit-button']}
-      >
-        다음
-      </Button>
-      <Button className="card-register__button--cancel">취소</Button>
+      <CardRegisterButtons
+        classNames={{
+          submit: 'card-register__button--submit',
+          cancel: 'card-register__button--cancel',
+        }}
+        refs={refs}
+        onSubmit={handleSubmit}
+        onCancel={() => {}}
+      />
     </StyledForm>
   );
 };
