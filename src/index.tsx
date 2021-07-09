@@ -4,7 +4,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
-import CardRegisterForm from './components/organisms/CardRegisterForm/CardRegisterForm';
+import CardRegisterForm from './components/templates/CardRegisterForm/CardRegisterForm';
 
 const StyledContainer = styled.div`
   position: absolute;
