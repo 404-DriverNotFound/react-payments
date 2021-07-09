@@ -1,8 +1,10 @@
 enum View {
   List,
-  Add
+  Add,
 }
 
-const THIS_YEAR = 2021;
+const THIS_YEAR = 21;
+const ABSOLUTE = false;
+const NORMAL = true;
 
-export { View, THIS_YEAR };
+export { View, THIS_YEAR, ABSOLUTE, NORMAL };

@@ -18,12 +18,12 @@
 
 .blue-card {
     color: #ffffff;
-    background: linear-gradient(to bottom right, #39A2DB, #E8F0F2);
+    background: linear-gradient(to bottom right, #3C5186, #FFF5DE);
 }
 
 .red-card {
     color: #ffffff;
-    background: linear-gradient(to bottom right, #AC0D0D, #FBE6C2);
+    background: linear-gradient(to bottom right, #DF5E5E, #FDD2BF);
 }
 
 .card-number {

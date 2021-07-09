@@ -1,8 +1,14 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import CardTemplate from '@components/CardTemplate/cardTemplate';
 import CardForm from '@components/CardForm/cardForm';
 import CardAddComplete from '@components/CardAddComplete/cardAddComplete';
-import { View } from '@constant/constant';
+import { ABSOLUTE, View } from '@constant/constant';
 import Card from '@typesCards/types.cards';
 import VirtualKeyboard from '@components/VirtualKeyboard/virtualKeyboard';
 import { getRandomNumbers } from '@utils/utils';
@@ -30,12 +36,19 @@ const CardAddForm = ({
 
   const [isComplete, setIsComplete] = useState<boolean>(false);
 
-  const [isMaskingInput, setIsMaskingInput] = useState<boolean>(false);
-
   const [keyboard, setKeyboard] = useState<number[]>([]);
 
+  const firstNumberInput = useRef<HTMLInputElement>(null);
+  const secondNumberInput = useRef<HTMLInputElement>(null);
+  const thirdNumberInput = useRef<HTMLInputElement>(null);
+  const fourthNumberInput = useRef<HTMLInputElement>(null);
+  const expireDateInput = useRef<HTMLInputElement>(null);
+  const publisherInput = useRef<HTMLInputElement>(null);
+  const cvcInput = useRef<HTMLInputElement>(null);
+  const passwordInput = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
-    setKeyboard(getRandomNumbers(20));
+    setKeyboard(getRandomNumbers(12));
   }, []);
 
   return (
@@ -56,27 +69,30 @@ const CardAddForm = ({
           secondNumbers={secondNumbers}
           thirdNumbers={thirdNumbers}
           fourthNumbers={fourthNumbers}
+          expireDate={expireDate}
+          publisher={publisher}
+          cvc={cvc}
+          setCVC={setCVC}
+          password={password}
+          keyboard={keyboard}
           setFirstNumbers={setFirstNumbers}
           setSecondNumbers={setSecondNumbers}
           setThirdNumbers={setThirdNumbers}
           setFourthNumbers={setFourthNumbers}
-          expireDate={expireDate}
           setExpireDate={setExpireDate}
-          publisher={publisher}
           setPublisher={serPublisher}
-          cvc={cvc}
-          setCVC={setCVC}
-          password={password}
           setPassword={setPassword}
           setIsComplete={setIsComplete}
-          setIsMaskingInput={setIsMaskingInput}
+          firstNumberInput={firstNumberInput}
+          secondNumberInput={secondNumberInput}
+          thirdNumberInput={thirdNumberInput}
+          fourthNumberInput={fourthNumberInput}
+          expireDateInput={expireDateInput}
+          publisherInput={publisherInput}
+          cvcInput={cvcInput}
+          passwordInput={passwordInput}
         />
       )}
-      {isMaskingInput &&
-        <VirtualKeyboard
-          position={'keyboard-absolute'}
-          keyboard={keyboard}
-        />}
       {isComplete && (
         <CardAddComplete
           cardList={cardList}

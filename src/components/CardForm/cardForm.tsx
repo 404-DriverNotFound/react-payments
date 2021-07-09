@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, SetStateAction } from 'react';
 import CardNumberForm from '@components/CardNumberForm/cardNumberForm';
 import CardExpireDateForm from '@components/CardExpireDateForm/cardExpireDateForm';
 import CardPublishForm from '@components/CardPublishForm/cardPublishForm';
@@ -7,25 +7,33 @@ import CardPasswordForm from '@components/CardPasswordForm/cardPasswordForm';
 import Button from '@components/share/Button/button';
 
 interface CardFormProps {
-  setBrandName: (value: string) => void;
+  setBrandName: React.Dispatch<SetStateAction<string>>;
   firstNumbers: string;
   secondNumbers: string;
   thirdNumbers: string;
   fourthNumbers: string;
-  setFirstNumbers: (value: string) => void;
-  setSecondNumbers: (value: string) => void;
-  setThirdNumbers: (value: string) => void;
-  setFourthNumbers: (value: string) => void;
+  setFirstNumbers: React.Dispatch<SetStateAction<string>>;
+  setSecondNumbers: React.Dispatch<SetStateAction<string>>;
+  setThirdNumbers: React.Dispatch<SetStateAction<string>>;
+  setFourthNumbers: React.Dispatch<SetStateAction<string>>;
   expireDate: string;
-  setExpireDate: (value: string) => void;
+  setExpireDate: React.Dispatch<SetStateAction<string>>;
   publisher: string;
-  setPublisher: (value: string) => void;
+  setPublisher: React.Dispatch<SetStateAction<string>>;
   cvc: string;
-  setCVC: (value: string) => void;
+  setCVC: React.Dispatch<SetStateAction<string>>;
   password: string;
-  setPassword: (value: string) => void;
-  setIsComplete: (value: boolean) => void;
-  setIsMaskingInput: (value: boolean) => void;
+  setPassword: React.Dispatch<SetStateAction<string>>;
+  setIsComplete: React.Dispatch<SetStateAction<boolean>>;
+  firstNumberInput: React.RefObject<HTMLInputElement>;
+  secondNumberInput: React.RefObject<HTMLInputElement>;
+  thirdNumberInput: React.RefObject<HTMLInputElement>;
+  fourthNumberInput: React.RefObject<HTMLInputElement>;
+  expireDateInput: React.RefObject<HTMLInputElement>;
+  publisherInput: React.RefObject<HTMLInputElement>;
+  cvcInput: React.RefObject<HTMLInputElement>;
+  passwordInput: React.RefObject<HTMLInputElement>;
+  keyboard: number[];
 }
 
 const CardForm = ({
@@ -47,19 +55,16 @@ const CardForm = ({
   password,
   setPassword,
   setIsComplete,
-  setIsMaskingInput,
+  firstNumberInput,
+  secondNumberInput,
+  thirdNumberInput,
+  fourthNumberInput,
+  expireDateInput,
+  publisherInput,
+  cvcInput,
+  passwordInput,
+  keyboard,
 }: CardFormProps) => {
-
-
-  const firstNumberInput = useRef<HTMLInputElement>(null);
-  const secondNumberInput = useRef<HTMLInputElement>(null);
-  const thirdNumberInput = useRef<HTMLInputElement>(null);
-  const fourthNumberInput = useRef<HTMLInputElement>(null);
-  const expireDateInput = useRef<HTMLInputElement>(null);
-  const publisherInput = useRef<HTMLInputElement>(null);
-  const cvcInput = useRef<HTMLInputElement>(null);
-  const passwordInput = useRef<HTMLInputElement>(null);
-
   const isFulfillInput = (
     ref: React.RefObject<HTMLInputElement>,
     count: number,
@@ -94,6 +99,7 @@ const CardForm = ({
     <>
       <CardNumberForm
         setBrandName={setBrandName}
+        keyboard={keyboard}
         firstNumbers={firstNumbers}
         secondNumbers={secondNumbers}
         thirdNumbers={thirdNumbers}
@@ -107,7 +113,6 @@ const CardForm = ({
         thirdNumberInput={thirdNumberInput}
         fourthNumberInput={fourthNumberInput}
         expireDateInput={expireDateInput}
-        setIsMaskingInput={setIsMaskingInput}
       />
       <CardExpireDateForm
         expireDate={expireDate}
@@ -124,6 +129,7 @@ const CardForm = ({
         cvc={cvc}
         setCVC={setCVC}
         cvcInput={cvcInput}
+        password={password}
         passwordInput={passwordInput}
       />
       <CardPasswordForm
