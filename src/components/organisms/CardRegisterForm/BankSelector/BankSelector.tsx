@@ -21,37 +21,22 @@ type BankSelectorProps = {
 };
 
 const BankSelector = ({ className, onClick }: BankSelectorProps) => {
+  const bankItems = C.BANK_LIST.map((name) => (
+    <BankItem
+      color={C.BANK_COLOR[name]}
+      bankName={name}
+      key={name}
+      onClick={onClick}
+    />
+  ));
+
   return (
     <>
       <StyledDiv className={className}>
-        {C.BANK_LIST.map((name, idx) => {
-          if (idx < 4) {
-            return (
-              <BankItem
-                color={C.BANK_COLOR[name]}
-                bankName={name}
-                key={name}
-                onClick={onClick}
-              />
-            );
-          }
-          return null;
-        })}
+        {bankItems.slice(0, 4)}
       </StyledDiv>
       <StyledDiv className={className}>
-        {C.BANK_LIST.map((name, idx) => {
-          if (idx > 3) {
-            return (
-              <BankItem
-                color={C.BANK_COLOR[name]}
-                bankName={name}
-                key={name}
-                onClick={onClick}
-              />
-            );
-          }
-          return null;
-        })}
+        {bankItems.slice(4, 8)}
       </StyledDiv>
     </>
   );
