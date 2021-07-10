@@ -154,7 +154,7 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
   };
 
   const handleNonDiscedFocus = () => {
-    setIsModalDisplayed(true);
+    setIsModalDisplayed(false);
   };
 
   const isPositiveIntWithLen = (len: number, ...arr: string[]): boolean => {
