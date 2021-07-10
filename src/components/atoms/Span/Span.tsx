@@ -11,7 +11,6 @@ const StyledSpan = styled.span`
     (className?.includes('card-preview__span--expiration')
       || className?.includes('card-preview__span--owner-name'))
       ? '50%' : '')};
-  color: ${({ className }) => (className?.includes('card-preview__span') ? '#666' : '')};
   text-align: ${({ className }) => (className?.includes('card-preview__span--expiration') ? 'right' : '')};
   margin-left: ${({ className }) => (className?.includes('card-register__span--card-number') ? '0.5em' : '')};
   margin-right: ${({ className }) => (className?.includes('card-register__span--card-number') ? '0.5em' : '')};

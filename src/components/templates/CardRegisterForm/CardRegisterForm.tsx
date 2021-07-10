@@ -8,9 +8,11 @@ import styled from 'styled-components';
 
 import Input from '../../atoms/Input/Input';
 import Card from '../../molecules/Card/Card';
+import Modal from '../../molecules/Modal/Modal';
+import BankSelector from '../../organisms/CardRegisterForm/BankSelector/BankSelector';
 import InputContainer from '../../molecules/InputContainer/InputContainer';
-import CardRegisterNumberInputs from '../../organisms/CardRegister/RegisterNumberInputs/RegisterNumberInputs';
-import CardRegisterButtons from '../../organisms/CardRegister/RegisterButtons/RegisterButtons';
+import CardRegisterNumberInputs from '../../organisms/CardRegisterForm/RegisterNumberInputs/RegisterNumberInputs';
+import CardRegisterButtons from '../../organisms/CardRegisterForm/RegisterButtons/RegisterButtons';
 
 const StyledForm = styled.form`
   float: center;
@@ -36,8 +38,14 @@ type valueObjType = {
   [key: string]: string;
 };
 
+type modalContentType = 'BankSelector' | 'VirtualKeyboard';
+
 const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
+  // eslint-disable-next-line no-unused-vars
+  const [isModalDisplayed, setIsModalDisplayed] = useState(false);
+  const [modalContent, setModalContent] = useState<modalContentType>('BankSelector');
   const [values, setValues] = useState<valueObjType>({
+    'card-bank': '',
     'card-number__1': '',
     'card-number__2': '',
     'card-number__3': '',
@@ -70,12 +78,25 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
     const { name, value } = event.target as HTMLInputElement;
     if (value.length > 4) {
       return;
-    } if (value.length === 4 && name === 'card-number__4') {
-      refs['card-expiration'].current?.focus();
-    } else if (value.length === 4) {
-      refs[`card-number__${Number(name.substr(-1)) + 1}`].current?.focus();
+    }
+    if (value.length === 4) {
+      if (name === 'card-number__2') {
+        setValues({ ...values, [name]: value });
+        setModalContent('BankSelector');
+        setIsModalDisplayed(true);
+      } else if (name === 'card-number__4') {
+        refs['card-expiration'].current?.focus();
+      } else {
+        refs[`card-number__${Number(name.substr(-1)) + 1}`].current?.focus();
+      }
     }
     setValues({ ...values, [name]: value });
+  };
+
+  const handleBankClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const { dataset } = event.target as HTMLDivElement;
+    setValues({ ...values, 'card-bank': dataset.name! });
+    refs['card-number__3'].current?.focus();
   };
 
   const handleExpirationChange = (event: React.ChangeEvent) => {
@@ -125,6 +146,11 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
     setValues({ ...values, [name]: value });
   };
 
+  const handleDiscedFocus = () => {
+    setModalContent('VirtualKeyboard');
+    setIsModalDisplayed(true);
+  };
+
   const isPositiveIntWithLen = (len: number, ...arr: string[]): boolean => {
     const isPositiveInt: RegExp = new RegExp(`^[0-9]{${len}}$`);
     return (
@@ -152,9 +178,32 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
     // TODO: 제출 처리
   };
 
+  const renderCardNumbers = () => {
+    const disced3 = String().padEnd(values['card-number__3'].length, '*');
+    const disced4 = String().padEnd(values['card-number__4'].length, '*');
+    return `${values['card-number__1']} ${values['card-number__2']} ${disced3} ${disced4}`;
+  };
+
   return (
     <StyledForm className={className}>
-      <Card className="card-register__card-preview" />
+      <Modal
+        className="card-register__modal"
+        display={isModalDisplayed}
+        // eslint-disable-next-line no-unused-expressions
+        onBackgroundClick={() => { modalContent === 'BankSelector' ? null : setIsModalDisplayed(false); }}
+        // TODO: 이벤트리스너 설정
+      >
+        {(modalContent === 'BankSelector'
+          ? (<BankSelector className="card-register__bank-selector" onClick={handleBankClick} />)
+          : ('Virtual Keyboard'))}
+      </Modal>
+      <Card
+        className="card-register__card-preview"
+        numbers={renderCardNumbers()}
+        owner={values['card-owner']}
+        bankName={values['card-bank']}
+        expiration={values['card-expiration']}
+      />
       <CardRegisterNumberInputs
         classNames={{
           container: 'card-register__input-container--card-number',
@@ -165,6 +214,7 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
         values={values}
         refs={refs}
         onChange={handleCardNumberChange}
+        onFocus={handleDiscedFocus}
       />
       <InlineBlockDiv>
         <label htmlFor="card-expiration">카드 유효기간</label>
@@ -190,6 +240,7 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
             value={values['card-cvc']}
             placeholder="CVC"
             onChange={handleCVCChange}
+            onFocus={handleDiscedFocus}
             ref={refs['card-cvc']}
             required
           />
@@ -219,6 +270,7 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
             name="card-password__1"
             value={values['card-password__1']}
             onChange={handlePasswordChange}
+            onFocus={handleDiscedFocus}
             ref={refs['card-password__1']}
             required
           />
@@ -230,6 +282,7 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
             name="card-password__2"
             value={values['card-password__2']}
             onChange={handlePasswordChange}
+            onFocus={handleDiscedFocus}
             ref={refs['card-password__2']}
             required
           />

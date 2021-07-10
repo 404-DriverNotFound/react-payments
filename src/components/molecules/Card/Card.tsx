@@ -5,6 +5,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { BANK_COLOR } from '../../../constants/cardBanks';
 import Span from '../../atoms/Span/Span';
 
 const StyledCard = styled.div`
@@ -12,10 +13,12 @@ const StyledCard = styled.div`
   width: 50%;
   margin: 0 auto;
   height: 0;
-  background-color: #eee;
+  background-color: ${({ color }) => (color || '#eee')};
   border-radius: 0.3rem;
   padding: 5%;
   padding-top: 30.9%;
+  color: #eee;
+  text-shadow: 1px 1px 1px #000;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.25);
 `;
 
@@ -46,21 +49,27 @@ const StyledContents = styled.div`
 
 type CardProps = {
   className?: string,
+  numbers: string,
+  owner: string,
+  bankName: string,
+  expiration: string,
 };
 
-const Card = ({ className }: CardProps) => {
+const Card = ({
+  className, numbers, owner, bankName, expiration,
+}: CardProps) => {
   return (
-    <StyledCard className={className}>
+    <StyledCard className={className} color={bankName ? BANK_COLOR[bankName] : null}>
       <StyledCardName>
-        <Span className="card-preview__span--card-name">CARD NAME</Span>
+        <Span className="card-preview__span--card-name">{bankName}</Span>
       </StyledCardName>
       <StyledCardChip key="card-chip" />
       <br />
       <StyledContents>
-        <Span className="card-preview__span--card-numbers" key="card-numbers">CARD NUMBERS</Span>
+        <Span className="card-preview__span--card-numbers" key="card-numbers">{numbers}</Span>
         <br />
-        <Span className="card-preview__span--owner-name" key="card-owner">NAME</Span>
-        <Span className="card-preview__span--expiration" key="card-date">DATE</Span>
+        <Span className="card-preview__span--owner-name" key="card-owner">{owner}</Span>
+        <Span className="card-preview__span--expiration" key="card-date">{expiration}</Span>
       </StyledContents>
     </StyledCard>
   );

@@ -29,10 +29,12 @@ type CardRegisterNumberInputsProps = {
   },
   // eslint-disable-next-line no-unused-vars
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
+  // eslint-disable-next-line no-unused-vars
+  onFocus: (event: React.FocusEvent<HTMLInputElement>) => void,
 }
 
 const CardRegisterNumberInputs = ({
-  classNames, label, values, refs, onChange,
+  classNames, label, values, refs, onChange, onFocus,
 }: CardRegisterNumberInputsProps) => {
   return (
     <StyledDiv>
@@ -67,6 +69,7 @@ const CardRegisterNumberInputs = ({
           name="card-number__3"
           value={values['card-number__3']}
           onChange={onChange}
+          onFocus={onFocus}
           key="input__3"
           ref={refs['card-number__3']}
           required
@@ -78,6 +81,7 @@ const CardRegisterNumberInputs = ({
           name="card-number__4"
           value={values['card-number__4']}
           onChange={onChange}
+          onFocus={onFocus}
           key="input__4"
           ref={refs['card-number__4']}
           required
