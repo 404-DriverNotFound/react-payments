@@ -22,6 +22,7 @@ const Circle = styled.div`
   height: 5em;
   border-radius: 2.5em;
   margin: 0.5em auto;
+  cursor: pointer;
   background-color: ${({ color }) => color};
 `;
 
@@ -36,12 +37,9 @@ const BankItem = ({
   color, bankName, onClick,
 }: BankItemProps) => {
   return (
-    <StyledItem
-      data-name={bankName}
-      onClick={onClick}
-    >
-      <Circle color={color} data-name={bankName} />
-      <Span data-name={bankName}>{bankName}</Span>
+    <StyledItem>
+      <Circle onClick={onClick} color={color} data-name={bankName} />
+      <Span>{bankName}</Span>
     </StyledItem>
   );
 };
