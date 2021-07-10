@@ -5,7 +5,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { BANK_COLOR } from '../../../constants/cardBanks';
+import { bankTypes, BANK_COLOR } from '../../../constants/cardBanks';
 import Span from '../../atoms/Span/Span';
 
 const StyledCard = styled.div`
@@ -51,7 +51,7 @@ type CardProps = {
   className?: string,
   numbers: string,
   owner: string,
-  bankName: string,
+  bankName: bankTypes,
   expiration: string,
 };
 
@@ -59,7 +59,7 @@ const Card = ({
   className, numbers, owner, bankName, expiration,
 }: CardProps) => {
   return (
-    <StyledCard className={className} color={bankName ? BANK_COLOR[bankName] : null}>
+    <StyledCard className={className} color={bankName ? BANK_COLOR[bankName] : ''}>
       <StyledCardName>
         <Span className="card-preview__span--card-name">{bankName}</Span>
       </StyledCardName>

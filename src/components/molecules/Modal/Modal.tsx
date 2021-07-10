@@ -3,9 +3,10 @@
 // eslint-disable-next-line no-use-before-define
 import React from 'react';
 import styled from 'styled-components';
+import classnames from 'classnames';
 
 const ModalBackground = styled.div`
-  display: ${({ display }) => display};
+  display: ${({ className }) => (className?.includes('hidden') ? 'none' : '')};
   position: fixed;
   top: 0;
   left: 0;
@@ -30,7 +31,7 @@ const ModalBackground = styled.div`
 `;
 
 const StyledModal = styled.div`
-  display: ${({ display }) => display};
+  display: ${({ className }) => (className?.includes('hidden') ? 'none' : '')};
   position: fixed;
   bottom: 0;
   left: 0;
@@ -68,8 +69,8 @@ const Modal = ({
 }: ModalProps) => {
   return (
     <>
-      <ModalBackground onClick={onBackgroundClick} display={display ? '' : 'none'} />
-      <StyledModal className={className} display={display ? '' : 'none'}>
+      <ModalBackground className={classnames(className, display ? '' : 'hidden')} onClick={onBackgroundClick} />
+      <StyledModal className={classnames(className, display ? '' : 'hidden')}>
         {children}
       </StyledModal>
     </>

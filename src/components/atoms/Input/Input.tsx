@@ -51,14 +51,16 @@ type InputProps = {
   name: string,
   value?: string,
   // eslint-disable-next-line no-unused-vars
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
+  // eslint-disable-next-line no-unused-vars
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void,
   placeholder?: string,
   required?: boolean,
   autoFocus?: boolean,
 };
 
 const Input = React.forwardRef(({
-  className, type, name, value, onChange, placeholder, required, autoFocus, ...rest
+  className, type, name, value, onFocus, onChange, placeholder, required, autoFocus, ...rest
 }: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
   return (
     <StyledInput
@@ -68,6 +70,7 @@ const Input = React.forwardRef(({
       name={name}
       value={value}
       onChange={onChange}
+      onFocus={onFocus}
       placeholder={placeholder}
       required={required}
       {...rest}
@@ -79,6 +82,8 @@ Input.defaultProps = {
   className: '',
   type: 'text',
   value: '',
+  onChange: () => {},
+  onFocus: () => {},
   placeholder: '',
   required: false,
   autoFocus: false,

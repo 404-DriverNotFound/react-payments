@@ -6,6 +6,7 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
+import { bankTypes } from '../../../constants/cardBanks';
 import Input from '../../atoms/Input/Input';
 import Card from '../../molecules/Card/Card';
 import Modal from '../../molecules/Modal/Modal';
@@ -35,7 +36,7 @@ type CardRegisterFormProps = {
 };
 
 type valueObjType = {
-  [key: string]: string;
+  [key: string]: string,
 };
 
 type modalContentType = 'BankSelector' | 'VirtualKeyboard';
@@ -96,6 +97,7 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
   const handleBankClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const { dataset } = event.target as HTMLDivElement;
     setValues({ ...values, 'card-bank': dataset.name! });
+    setIsModalDisplayed(false);
     refs['card-number__3'].current?.focus();
   };
 
@@ -151,6 +153,10 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
     setIsModalDisplayed(true);
   };
 
+  const handleNonDiscedFocus = () => {
+    setIsModalDisplayed(true);
+  };
+
   const isPositiveIntWithLen = (len: number, ...arr: string[]): boolean => {
     const isPositiveInt: RegExp = new RegExp(`^[0-9]{${len}}$`);
     return (
@@ -201,7 +207,7 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
         className="card-register__card-preview"
         numbers={renderCardNumbers()}
         owner={values['card-owner']}
-        bankName={values['card-bank']}
+        bankName={values['card-bank'] as bankTypes}
         expiration={values['card-expiration']}
       />
       <CardRegisterNumberInputs
@@ -224,6 +230,7 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
             name="card-expiration"
             value={values['card-expiration']}
             onChange={handleExpirationChange}
+            onFocus={handleNonDiscedFocus}
             placeholder="MM/YY"
             ref={refs['card-expiration']}
             required
@@ -255,6 +262,7 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
           name="card-owner"
           value={values['card-owner']}
           onChange={handleOwnerNameChange}
+          onFocus={handleNonDiscedFocus}
           placeholder="카드에 표시된 이름과 동일하게 입력하세요"
           ref={refs['card-owner']}
           required
