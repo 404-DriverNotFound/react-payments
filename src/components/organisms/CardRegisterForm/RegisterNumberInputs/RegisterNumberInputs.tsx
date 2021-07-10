@@ -6,6 +6,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import FORM_KEY from '../../../../constants/keys';
 import Span from '../../../atoms/Span/Span';
 import Input from '../../../atoms/Input/Input';
 import InputContainer from '../../../molecules/InputContainer/InputContainer';
@@ -43,11 +44,11 @@ const CardRegisterNumberInputs = ({
         <Input
           className={`${classNames.input}__1`}
           type="number"
-          name="card-number__1"
-          value={values['card-number__1']}
+          name={FORM_KEY.CARD_NUMBER_FIRST}
+          value={values[FORM_KEY.CARD_NUMBER_FIRST]}
           onChange={onChange}
           key="input__1"
-          ref={refs['card-number__1']}
+          ref={refs[FORM_KEY.CARD_NUMBER_FIRST]}
           autoFocus
           required
         />
@@ -55,35 +56,35 @@ const CardRegisterNumberInputs = ({
         <Input
           className={`${classNames.input}__2`}
           type="number"
-          name="card-number__2"
-          value={values['card-number__2']}
+          name={FORM_KEY.CARD_NUMBER_SECOND}
+          value={values[FORM_KEY.CARD_NUMBER_SECOND]}
           onChange={onChange}
           key="input__2"
-          ref={refs['card-number__2']}
+          ref={refs[FORM_KEY.CARD_NUMBER_SECOND]}
           required
         />
         <Span className={classNames.span} key="span__2">-</Span>
         <Input
           className={`${classNames.input}__3`}
           type="number"
-          name="card-number__3"
-          value={values['card-number__3']}
+          name={FORM_KEY.CARD_NUMBER_THIRD}
+          value={values[FORM_KEY.CARD_NUMBER_THIRD]}
           onChange={onChange}
           onFocus={onFocus}
           key="input__3"
-          ref={refs['card-number__3']}
+          ref={refs[FORM_KEY.CARD_NUMBER_THIRD]}
           required
         />
         <Span className={classNames.span} key="span__3">-</Span>
         <Input
           className={`${classNames.input}__4`}
           type="number"
-          name="card-number__4"
-          value={values['card-number__4']}
+          name={FORM_KEY.CARD_NUMBER_FOURTH}
+          value={values[FORM_KEY.CARD_NUMBER_FOURTH]}
           onChange={onChange}
           onFocus={onFocus}
           key="input__4"
-          ref={refs['card-number__4']}
+          ref={refs[FORM_KEY.CARD_NUMBER_FOURTH]}
           required
         />
       </InputContainer>

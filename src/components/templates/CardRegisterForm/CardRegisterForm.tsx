@@ -7,6 +7,7 @@ import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
 import { bankTypes } from '../../../constants/cardBanks';
+import FORM_KEY from '../../../constants/keys';
 import Input from '../../atoms/Input/Input';
 import Card from '../../molecules/Card/Card';
 import Modal from '../../molecules/Modal/Modal';
@@ -46,16 +47,17 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
   const [isModalDisplayed, setIsModalDisplayed] = useState(false);
   const [modalContent, setModalContent] = useState<modalContentType>('BankSelector');
   const [values, setValues] = useState<valueObjType>({
-    'card-bank': '',
-    'card-number__1': '',
-    'card-number__2': '',
-    'card-number__3': '',
-    'card-number__4': '',
-    'card-expiration': '',
-    'card-cvc': '',
-    'card-owner': '',
-    'card-password__1': '',
-    'card-password__2': '',
+    [FORM_KEY.CARD_BANK]: '',
+    [FORM_KEY.CARD_NUMBER]: '',
+    [FORM_KEY.CARD_NUMBER_FIRST]: '',
+    [FORM_KEY.CARD_NUMBER_SECOND]: '',
+    [FORM_KEY.CARD_NUMBER_THIRD]: '',
+    [FORM_KEY.CARD_NUMBER_FOURTH]: '',
+    [FORM_KEY.CARD_EXPIRATION]: '',
+    [FORM_KEY.CARD_CVC]: '',
+    [FORM_KEY.CARD_OWNER]: '',
+    [FORM_KEY.CARD_PASSWORD_FIRST]: '',
+    [FORM_KEY.CARD_PASSWORD_SECOND]: '',
   });
 
   type refObjType = {
@@ -63,16 +65,16 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
   };
 
   const refs: refObjType = {
-    'card-number__1': useRef<HTMLInputElement>(null),
-    'card-number__2': useRef<HTMLInputElement>(null),
-    'card-number__3': useRef<HTMLInputElement>(null),
-    'card-number__4': useRef<HTMLInputElement>(null),
-    'card-expiration': useRef<HTMLInputElement>(null),
-    'card-cvc': useRef<HTMLInputElement>(null),
-    'card-owner': useRef<HTMLInputElement>(null),
-    'card-password__1': useRef<HTMLInputElement>(null),
-    'card-password__2': useRef<HTMLInputElement>(null),
-    'submit-button': useRef<HTMLButtonElement>(null),
+    [FORM_KEY.CARD_NUMBER_FIRST]: useRef<HTMLInputElement>(null),
+    [FORM_KEY.CARD_NUMBER_SECOND]: useRef<HTMLInputElement>(null),
+    [FORM_KEY.CARD_NUMBER_THIRD]: useRef<HTMLInputElement>(null),
+    [FORM_KEY.CARD_NUMBER_FOURTH]: useRef<HTMLInputElement>(null),
+    [FORM_KEY.CARD_EXPIRATION]: useRef<HTMLInputElement>(null),
+    [FORM_KEY.CARD_CVC]: useRef<HTMLInputElement>(null),
+    [FORM_KEY.CARD_OWNER]: useRef<HTMLInputElement>(null),
+    [FORM_KEY.CARD_PASSWORD_FIRST]: useRef<HTMLInputElement>(null),
+    [FORM_KEY.CARD_PASSWORD_SECOND]: useRef<HTMLInputElement>(null),
+    [FORM_KEY.SUBMIT_BUTTON]: useRef<HTMLButtonElement>(null),
   };
 
   const handleCardNumberChange = (event: React.ChangeEvent) => {
@@ -81,14 +83,16 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
       return;
     }
     if (value.length === 4) {
-      if (name === 'card-number__2') {
+      if (name === FORM_KEY.CARD_NUMBER_FIRST) {
+        refs[FORM_KEY.CARD_NUMBER_SECOND].current?.focus();
+      } else if (name === FORM_KEY.CARD_NUMBER_SECOND) {
         setValues({ ...values, [name]: value });
         setModalContent('BankSelector');
         setIsModalDisplayed(true);
-      } else if (name === 'card-number__4') {
-        refs['card-expiration'].current?.focus();
-      } else {
-        refs[`card-number__${Number(name.substr(-1)) + 1}`].current?.focus();
+      } else if (name === FORM_KEY.CARD_NUMBER_THIRD) {
+        refs[FORM_KEY.CARD_NUMBER_FOURTH].current?.focus();
+      } else if (name === FORM_KEY.CARD_NUMBER_FOURTH) {
+        refs[FORM_KEY.CARD_EXPIRATION].current?.focus();
       }
     }
     setValues({ ...values, [name]: value });
@@ -96,9 +100,9 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
 
   const handleBankClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const { dataset } = event.target as HTMLDivElement;
-    setValues({ ...values, 'card-bank': dataset.name! });
+    setValues({ ...values, [FORM_KEY.CARD_BANK]: dataset.name! });
     setIsModalDisplayed(false);
-    refs['card-number__3'].current?.focus();
+    refs[FORM_KEY.CARD_NUMBER_THIRD].current?.focus();
   };
 
   const handleExpirationChange = (event: React.ChangeEvent) => {
@@ -115,7 +119,7 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
       setValues({ ...values, [name]: value.substr(0, 2) });
       return;
     } if (value.length === 5) {
-      refs['card-cvc'].current?.focus();
+      refs[FORM_KEY.CARD_CVC].current?.focus();
     }
     setValues({ ...values, [name]: value });
   };
@@ -125,7 +129,7 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
     if (value.length > 3) {
       return;
     } if (value.length === 3) {
-      refs['card-owner'].current?.focus();
+      refs[FORM_KEY.CARD_OWNER].current?.focus();
     }
     setValues({ ...values, [name]: value });
   };
@@ -140,10 +144,11 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
     if (value.length > 1) {
       return;
     }
-    if (name === 'card-password__1') {
-      refs['card-password__2'].current?.focus();
+    if (name === FORM_KEY.CARD_PASSWORD_FIRST) {
+      refs[FORM_KEY.CARD_PASSWORD_SECOND].current?.focus();
     } else {
-      refs['submit-button'].current?.focus();
+      setIsModalDisplayed(false);
+      refs[FORM_KEY.SUBMIT_BUTTON].current?.focus();
     }
     setValues({ ...values, [name]: value });
   };
@@ -166,17 +171,19 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
 
   const handleSubmit = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (!isPositiveIntWithLen(4, values['card-number__1'], values['card-number__2'],
-      values['card-number__3'], values['card-number__4'])) {
+    if (!isPositiveIntWithLen(4, values[FORM_KEY.CARD_NUMBER_FIRST],
+      values[FORM_KEY.CARD_NUMBER_THIRD], values[FORM_KEY.CARD_NUMBER_FOURTH])) {
       // TODO: 에러 UI 표시
       return;
-    } if (!isPositiveIntWithLen(3, values['card-cvc'])) {
+    } if (!isPositiveIntWithLen(3, values[FORM_KEY.CARD_CVC])) {
       // TODO: 에러 UI 표시
       return;
-    } if (!isPositiveIntWithLen(2, values['card-expiration'].substr(0, 2), values['card-expiration'].substr(3))) {
+    } if (!isPositiveIntWithLen(2, values[FORM_KEY.CARD_EXPIRATION].substr(0, 2),
+      values[FORM_KEY.CARD_EXPIRATION].substr(3))) {
       // TODO: 에러 UI 표시
       return;
-    } if (!isPositiveIntWithLen(1, values['card-password__1'], values['card-password__2'])) {
+    } if (!isPositiveIntWithLen(1, values[FORM_KEY.CARD_PASSWORD_FIRST],
+      values[FORM_KEY.CARD_PASSWORD_SECOND])) {
       // TODO: 에러 UI 표시
       // eslint-disable-next-line no-useless-return
       return;
@@ -185,9 +192,9 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
   };
 
   const renderCardNumbers = () => {
-    const disced3 = String().padEnd(values['card-number__3'].length, '*');
-    const disced4 = String().padEnd(values['card-number__4'].length, '*');
-    return `${values['card-number__1']} ${values['card-number__2']} ${disced3} ${disced4}`;
+    const disced3 = String().padEnd(values[FORM_KEY.CARD_NUMBER_THIRD].length, '*');
+    const disced4 = String().padEnd(values[FORM_KEY.CARD_NUMBER_FOURTH].length, '*');
+    return `${values[FORM_KEY.CARD_NUMBER_FIRST]} ${values[FORM_KEY.CARD_NUMBER_SECOND]} ${disced3} ${disced4}`;
   };
 
   return (
@@ -206,9 +213,9 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
       <Card
         className="card-register__card-preview"
         numbers={renderCardNumbers()}
-        owner={values['card-owner']}
-        bankName={values['card-bank'] as bankTypes}
-        expiration={values['card-expiration']}
+        owner={values[FORM_KEY.CARD_OWNER]}
+        bankName={values[FORM_KEY.CARD_BANK] as bankTypes}
+        expiration={values[FORM_KEY.CARD_EXPIRATION]}
       />
       <CardRegisterNumberInputs
         classNames={{
@@ -227,12 +234,12 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
         <InputContainer className="card-register__input-container--card-expiration">
           <Input
             className="card-register__input--card-expiration"
-            name="card-expiration"
-            value={values['card-expiration']}
+            name={FORM_KEY.CARD_EXPIRATION}
+            value={values[FORM_KEY.CARD_EXPIRATION]}
             onChange={handleExpirationChange}
             onFocus={handleNonDiscedFocus}
             placeholder="MM/YY"
-            ref={refs['card-expiration']}
+            ref={refs[FORM_KEY.CARD_EXPIRATION]}
             required
           />
         </InputContainer>
@@ -243,12 +250,12 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
           <Input
             className="card-register__input--card-cvc"
             type="number"
-            name="card-cvc"
-            value={values['card-cvc']}
+            name={FORM_KEY.CARD_CVC}
+            value={values[FORM_KEY.CARD_CVC]}
             placeholder="CVC"
             onChange={handleCVCChange}
             onFocus={handleDiscedFocus}
-            ref={refs['card-cvc']}
+            ref={refs[FORM_KEY.CARD_CVC]}
             required
           />
         </InputContainer>
@@ -259,12 +266,12 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
         <Input
           className="card-register__input--card-owner"
           type="text"
-          name="card-owner"
-          value={values['card-owner']}
+          name={FORM_KEY.CARD_OWNER}
+          value={values[FORM_KEY.CARD_OWNER]}
           onChange={handleOwnerNameChange}
           onFocus={handleNonDiscedFocus}
           placeholder="카드에 표시된 이름과 동일하게 입력하세요"
-          ref={refs['card-owner']}
+          ref={refs[FORM_KEY.CARD_OWNER]}
           required
         />
       </InputContainer>
@@ -275,11 +282,11 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
           <Input
             className="card-register__input--card-password"
             type="password"
-            name="card-password__1"
-            value={values['card-password__1']}
+            name={FORM_KEY.CARD_PASSWORD_FIRST}
+            value={values[FORM_KEY.CARD_PASSWORD_FIRST]}
             onChange={handlePasswordChange}
             onFocus={handleDiscedFocus}
-            ref={refs['card-password__1']}
+            ref={refs[FORM_KEY.CARD_PASSWORD_FIRST]}
             required
           />
         </InputContainer>
@@ -287,11 +294,11 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
           <Input
             className="card-register__input--card-password"
             type="number"
-            name="card-password__2"
-            value={values['card-password__2']}
+            name={FORM_KEY.CARD_PASSWORD_SECOND}
+            value={values[FORM_KEY.CARD_PASSWORD_SECOND]}
             onChange={handlePasswordChange}
             onFocus={handleDiscedFocus}
-            ref={refs['card-password__2']}
+            ref={refs[FORM_KEY.CARD_PASSWORD_SECOND]}
             required
           />
         </InputContainer>
