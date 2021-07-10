@@ -1,20 +1,20 @@
-/* eslint-disable import/extensions */
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-
-import Card from './Card.tsx';
+import Modal from './Modal.tsx';
 
 export default {
-  component: Card,
-  title: 'molecules/Card',
+  component: Modal,
+  title: 'molecules/Modal',
 };
 
-// eslint-disable-next-line react/prop-types
-const Template = (args) => (<Card {...args} />);
+const Template = (args) => <Modal {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
   className: '',
+  display: true,
+  children: 'modal contents',
+  onBackgroundClick: () => { console.log('clicked'); },
 };

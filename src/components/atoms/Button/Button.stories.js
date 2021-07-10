@@ -6,7 +6,7 @@ import Button from './Button.tsx';
 
 export default {
   component: Button,
-  title: 'Button',
+  title: 'atoms/Button',
 };
 
 const Template = (args) => <Button {...args} />;

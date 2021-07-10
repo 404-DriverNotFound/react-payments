@@ -11,7 +11,7 @@ import * as InputStories from '../../atoms/Input/Input.stories';
 
 export default {
   component: InputContainer,
-  title: 'InputContainer',
+  title: 'molecules/InputContainer',
 };
 
 // eslint-disable-next-line react/prop-types

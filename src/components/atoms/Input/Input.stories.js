@@ -6,7 +6,7 @@ import Input from './Input.tsx';
 
 export default {
   component: Input,
-  title: 'Input',
+  title: 'atoms/Input',
 };
 
 const Template = (args) => <Input {...args} />;

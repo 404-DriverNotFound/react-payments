@@ -8,7 +8,7 @@ import CardRegisterForm from './CardRegisterForm.tsx';
 
 export default {
   component: CardRegisterForm,
-  title: 'CardRegisterForm',
+  title: 'templates/CardRegisterForm',
 };
 
 // eslint-disable-next-line react/prop-types

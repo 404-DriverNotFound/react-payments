@@ -6,7 +6,7 @@ import Span from './Span.tsx';
 
 export default {
   component: Span,
-  title: 'Span',
+  title: 'atoms/Span',
 };
 
 const Template = (args) => <Span {...args} />;
