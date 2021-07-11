@@ -1,6 +1,4 @@
-/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable arrow-body-style */
-// eslint-disable-next-line no-use-before-define
 import React from 'react';
 import styled from 'styled-components';
 
@@ -23,6 +21,7 @@ type SpanProps = {
 
 const Span = ({ className, children, ...rest }: SpanProps) => {
   return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
     <StyledSpan className={className} {...rest}>
       {children}
     </StyledSpan>

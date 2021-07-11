@@ -1,6 +1,4 @@
 /* eslint-disable arrow-body-style */
-/* eslint-disable react/jsx-props-no-spreading */
-// eslint-disable-next-line no-use-before-define
 import React, { ForwardedRef } from 'react';
 import styled from 'styled-components';
 
@@ -73,6 +71,7 @@ const Input = React.forwardRef(({
       onFocus={onFocus}
       placeholder={placeholder}
       required={required}
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...rest}
     />
   );

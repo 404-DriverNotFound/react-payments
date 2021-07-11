@@ -1,6 +1,4 @@
-/* eslint-disable import/no-unresolved */
 /* eslint-disable arrow-body-style */
-// eslint-disable-next-line no-use-before-define
 import React from 'react';
 import styled from 'styled-components';
 import classnames from 'classnames';

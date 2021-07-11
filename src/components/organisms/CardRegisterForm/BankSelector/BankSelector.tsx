@@ -1,7 +1,4 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 /* eslint-disable arrow-body-style */
-// eslint-disable-next-line no-use-before-define
 import React from 'react';
 import styled from 'styled-components';
 
@@ -21,14 +18,16 @@ type BankSelectorProps = {
 };
 
 const BankSelector = ({ className, onClick }: BankSelectorProps) => {
-  const bankItems = C.BANK_LIST.map((name) => (
-    <BankItem
-      color={C.BANK_COLOR[name]}
-      bankName={name}
-      key={name}
-      onClick={onClick}
-    />
-  ));
+  const bankItems = C.BANK_LIST.map((name) => {
+    return (
+      <BankItem
+        color={C.BANK_COLOR[name]}
+        bankName={name}
+        key={name}
+        onClick={onClick}
+      />
+    );
+  });
 
   return (
     <>
