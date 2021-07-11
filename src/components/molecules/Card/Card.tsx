@@ -44,7 +44,7 @@ const StyledContents = styled.div`
   width: 80%;
 `;
 
-type CardProps = {
+export type CardProps = {
   className?: string,
   numbers: string,
   owner: string,

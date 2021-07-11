@@ -2,14 +2,15 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import BankItem from './BankItem.tsx';
+import { Meta, Story } from '@storybook/react';
+import BankItem, { BankItemProps } from './BankItem';
 
 export default {
   component: BankItem,
   title: 'molecules/BankItem',
-};
+} as Meta;
 
-const Template = (args) => <BankItem {...args} />;
+const Template: Story<BankItemProps> = (args) => <BankItem {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

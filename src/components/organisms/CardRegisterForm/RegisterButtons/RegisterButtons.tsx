@@ -9,7 +9,7 @@ const StyledDiv = styled.div`
   margin: 0 0 auto auto;
 `;
 
-type CardRegisterButtonsProps = {
+export type CardRegisterButtonsProps = {
   classNames: {
     'submit': string,
     'cancel': string,

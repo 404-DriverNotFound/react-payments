@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@storybook/react": "^6.3.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -11,7 +12,6 @@
     "@types/react": "^17.0.13",
     "@types/react-dom": "^17.0.8",
     "@types/styled-components": "^5.1.11",
-    "classnames": "^2.3.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -63,15 +63,16 @@
     "@storybook/addon-links": "^6.3.2",
     "@storybook/node-logger": "^6.3.2",
     "@storybook/preset-create-react-app": "^3.1.7",
-    "@storybook/react": "^6.3.2",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "@typescript-eslint/parser": "^4.28.1",
+    "babel-preset-react-app": "^10.0.0",
     "eslint": "^7.30.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "husky": "^7.0.0"
+    "husky": "^7.0.0",
+    "react-docgen-typescript-loader": "^3.7.2"
   }
 }

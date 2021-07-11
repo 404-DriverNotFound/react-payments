@@ -28,15 +28,15 @@ const InlineBlockDiv = styled.div`
   width: 50%;
 `;
 
-type CardRegisterFormProps = {
+export type CardRegisterFormProps = {
   className?: string,
 };
 
-type valueObjType = {
+export type valueObjType = {
   [key: string]: string,
 };
 
-type modalContentType = 'BankSelector' | 'VirtualKeyboard';
+export type modalContentType = 'BankSelector' | 'VirtualKeyboard';
 
 const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
   // eslint-disable-next-line no-unused-vars

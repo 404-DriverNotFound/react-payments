@@ -1,15 +1,14 @@
-/* eslint-disable no-use-before-define */
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import Modal from './Modal.tsx';
+import { Meta, Story } from '@storybook/react';
+import Modal, { ModalProps } from './Modal';
 
 export default {
   component: Modal,
   title: 'molecules/Modal',
-};
+} as Meta;
 
-const Template = (args) => <Modal {...args} />;
+const Template: Story<ModalProps> = (args) => <Modal {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

@@ -1,10 +1,10 @@
 /* eslint-disable arrow-body-style */
 import React from 'react';
 import styled from 'styled-components';
-import classnames from 'classnames';
 
-const ModalBackground = styled.div`
-  display: ${({ className }) => (className?.includes('hidden') ? 'none' : '')};
+// eslint-disable-next-line no-unused-vars
+const ModalBackground = styled.div<{ display: string }>`
+  display: ${({ display }) => display};
   position: fixed;
   top: 0;
   left: 0;
@@ -28,8 +28,8 @@ const ModalBackground = styled.div`
   }
 `;
 
-const StyledModal = styled.div`
-  display: ${({ className }) => (className?.includes('hidden') ? 'none' : '')};
+const StyledModal = styled.div<{ display: string }>`
+  display: ${({ display }) => display};
   position: fixed;
   bottom: 0;
   left: 0;
@@ -54,7 +54,7 @@ const StyledModal = styled.div`
   }
 `;
 
-type ModalProps = {
+export type ModalProps = {
   className: string,
   display: boolean,
   children?: React.ReactNode,
@@ -67,8 +67,8 @@ const Modal = ({
 }: ModalProps) => {
   return (
     <>
-      <ModalBackground className={classnames(className, display ? '' : 'hidden')} onClick={onBackgroundClick} />
-      <StyledModal className={classnames(className, display ? '' : 'hidden')}>
+      <ModalBackground className={className} display={display ? '' : 'none'} onClick={onBackgroundClick} />
+      <StyledModal className={className} display={display ? '' : 'none'}>
         {children}
       </StyledModal>
     </>

@@ -23,7 +23,7 @@ const Circle = styled.div`
   background-color: ${({ color }) => color};
 `;
 
-type BankItemProps = {
+export type BankItemProps = {
   color: string,
   bankName: string,
   // eslint-disable-next-line no-unused-vars

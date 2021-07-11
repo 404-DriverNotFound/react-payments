@@ -11,7 +11,7 @@ const StyledDiv = styled.div`
   margin: 1em auto;
 `;
 
-type BankSelectorProps = {
+export type BankSelectorProps = {
   className: string,
   // eslint-disable-next-line no-unused-vars
   onClick: (event: React.MouseEvent<HTMLDivElement>) => void,

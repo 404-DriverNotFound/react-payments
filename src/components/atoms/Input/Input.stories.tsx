@@ -2,14 +2,15 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import Input from './Input.tsx';
+import { Meta, Story } from '@storybook/react';
+import Input, { InputProps } from './Input';
 
 export default {
   component: Input,
   title: 'atoms/Input',
-};
+} as Meta;
 
-const Template = (args) => <Input {...args} />;
+const Template: Story<InputProps> = (args) => <Input {...args} />;
 
 export const Text = Template.bind({});
 Text.args = {

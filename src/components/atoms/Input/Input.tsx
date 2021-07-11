@@ -43,10 +43,10 @@ const StyledInput = styled.input`
   }
 `;
 
-type InputProps = {
+export type InputProps = {
   className?: string,
   type?: string,
-  name: string,
+  name?: string,
   value?: string,
   // eslint-disable-next-line no-unused-vars
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
@@ -79,6 +79,7 @@ const Input = React.forwardRef(({
 
 Input.defaultProps = {
   className: '',
+  name: '',
   type: 'text',
   value: '',
   onChange: () => {},

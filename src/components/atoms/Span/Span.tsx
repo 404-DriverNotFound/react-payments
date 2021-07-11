@@ -14,7 +14,7 @@ const StyledSpan = styled.span`
   margin-right: ${({ className }) => (className?.includes('card-register__span--card-number') ? '0.5em' : '')};
 `;
 
-type SpanProps = {
+export type SpanProps = {
   className?: string,
   children: React.ReactNode,
 };

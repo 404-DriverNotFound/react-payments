@@ -3,19 +3,18 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-
-import BankSelector from './BankSelector.tsx';
+import { Meta, Story } from '@storybook/react';
+import Card, { CardProps } from './Card';
 
 export default {
-  component: BankSelector,
-  title: 'organisms/BankSelector',
-};
+  component: Card,
+  title: 'molecules/Card',
+} as Meta;
 
 // eslint-disable-next-line react/prop-types
-const Template = (args) => (<BankSelector {...args} />);
+const Template: Story<CardProps> = (args) => (<Card {...args} />);
 
 export const Default = Template.bind({});
 Default.args = {
   className: '',
-  onClick: () => { console.log('clicked'); },
 };

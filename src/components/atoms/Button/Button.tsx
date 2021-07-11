@@ -16,7 +16,7 @@ const StyledButton = styled.button`
   }
 `;
 
-type ButtonProps = {
+export type ButtonProps = {
   className?: string,
   color?: 'default' | 'blue',
   type?: 'button' | 'submit' | 'reset',

@@ -2,14 +2,15 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import Button from './Button.tsx';
+import { Meta, Story } from '@storybook/react';
+import Button, { ButtonProps } from './Button';
 
 export default {
   component: Button,
   title: 'atoms/Button',
-};
+} as Meta;
 
-const Template = (args) => <Button {...args} />;
+const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

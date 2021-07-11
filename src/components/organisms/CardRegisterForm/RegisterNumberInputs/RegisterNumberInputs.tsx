@@ -13,7 +13,7 @@ const StyledDiv = styled.div`
   margin-top: 1rem;
 `;
 
-type CardRegisterNumberInputsProps = {
+export type CardRegisterNumberInputsProps = {
   classNames: {
     'container': string,
     'input': string,

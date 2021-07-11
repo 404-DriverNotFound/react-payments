@@ -23,7 +23,7 @@ const StyledDiv = styled.div`
     margin-right: 0.5em;` : '')};
 `;
 
-type InputContainerProps = {
+export type InputContainerProps = {
   className?: string,
   children?: React.ReactNode,
 }
