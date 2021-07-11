@@ -54,29 +54,34 @@ const StyledModal = styled.div<{ display: string }>`
   }
 `;
 
+const ModalContent = styled.div`
+  padding: 1em 2em;
+`;
+
 export type ModalProps = {
-  className: string,
-  display: boolean,
+  display?: boolean,
   children?: React.ReactNode,
   // eslint-disable-next-line no-unused-vars
-  onBackgroundClick: (event: React.MouseEvent<HTMLDivElement>) => void,
+  onClick?: (event: React.MouseEvent) => void,
 };
 
-const Modal = ({
-  className, display, children, onBackgroundClick,
-}: ModalProps) => {
+const Modal = ({ display, children, onClick }: ModalProps) => {
   return (
     <>
-      <ModalBackground className={className} display={display ? '' : 'none'} onClick={onBackgroundClick} />
-      <StyledModal className={className} display={display ? '' : 'none'}>
-        {children}
+      <ModalBackground display={display ? '' : 'none'} onClick={onClick} />
+      <StyledModal display={display ? '' : 'none'}>
+        <ModalContent>
+          {children}
+        </ModalContent>
       </StyledModal>
     </>
   );
 };
 
 Modal.defaultProps = {
+  display: false,
   children: null,
+  onClick: () => {},
 };
 
 export default Modal;

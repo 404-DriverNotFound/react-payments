@@ -12,7 +12,6 @@ const Template: Story<ModalProps> = (args) => <Modal {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  className: '',
   display: true,
   children: 'modal contents',
   onBackgroundClick: () => { console.log('clicked'); },

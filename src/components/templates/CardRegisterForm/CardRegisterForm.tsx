@@ -196,11 +196,8 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
   return (
     <StyledForm className={className}>
       <Modal
-        className="card-register__modal"
         display={isModalDisplayed}
-        // eslint-disable-next-line no-unused-expressions
-        onBackgroundClick={() => { modalContent === 'BankSelector' ? null : setIsModalDisplayed(false); }}
-        // TODO: 이벤트리스너 설정
+        onClick={() => { setIsModalDisplayed(false); }}
       >
         {(modalContent === 'BankSelector'
           ? (<BankSelector className="card-register__bank-selector" onClick={handleBankClick} />)
