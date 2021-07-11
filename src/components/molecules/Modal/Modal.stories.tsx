@@ -14,5 +14,4 @@ export const Default = Template.bind({});
 Default.args = {
   display: true,
   children: 'modal contents',
-  onBackgroundClick: () => { console.log('clicked'); },
 };

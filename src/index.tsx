@@ -17,7 +17,7 @@ const StyledContainer = styled.div`
 
 ReactDOM.render(
   <StyledContainer>
-    <CardRegisterForm className="card-register__form" />
+    <CardRegisterForm />
   </StyledContainer>,
   document.getElementById('root'),
 
