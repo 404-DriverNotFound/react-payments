@@ -4,7 +4,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import FORM_KEY from '../../../../constants/keys';
+import { FORM_KEY } from '../../../../constants/keys';
 import Span from '../../../atoms/Span/Span';
 import Input from '../../../atoms/Input/Input';
 import InputContainer from '../../../molecules/InputContainer/InputContainer';
@@ -14,11 +14,6 @@ const StyledDiv = styled.div`
 `;
 
 export type CardRegisterNumberInputsProps = {
-  classNames: {
-    'container': string,
-    'input': string,
-    'span': string,
-  },
   label: string,
   values: {
     [key: string]: string,
@@ -33,15 +28,15 @@ export type CardRegisterNumberInputsProps = {
 }
 
 const CardRegisterNumberInputs = ({
-  classNames, label, values, refs, onChange, onFocus,
+  label, values, refs, onChange, onFocus,
 }: CardRegisterNumberInputsProps) => {
   return (
     <StyledDiv>
       <label>{label}</label>
-      <InputContainer className={classNames.container}>
+      <InputContainer styledType={FORM_KEY.CARD_NUMBER}>
         <Input
-          className={`${classNames.input}__1`}
           type="number"
+          styledType={FORM_KEY.CARD_NUMBER_FIRST}
           name={FORM_KEY.CARD_NUMBER_FIRST}
           value={values[FORM_KEY.CARD_NUMBER_FIRST]}
           onChange={onChange}
@@ -50,10 +45,10 @@ const CardRegisterNumberInputs = ({
           autoFocus
           required
         />
-        <Span className={classNames.span} key="span__1">-</Span>
+        <Span key="span__1" styledType={FORM_KEY.CARD_NUMBER}>-</Span>
         <Input
-          className={`${classNames.input}__2`}
           type="number"
+          styledType={FORM_KEY.CARD_NUMBER_SECOND}
           name={FORM_KEY.CARD_NUMBER_SECOND}
           value={values[FORM_KEY.CARD_NUMBER_SECOND]}
           onChange={onChange}
@@ -61,10 +56,10 @@ const CardRegisterNumberInputs = ({
           ref={refs[FORM_KEY.CARD_NUMBER_SECOND]}
           required
         />
-        <Span className={classNames.span} key="span__2">-</Span>
+        <Span key="span__2" styledType={FORM_KEY.CARD_NUMBER}>-</Span>
         <Input
-          className={`${classNames.input}__3`}
           type="number"
+          styledType={FORM_KEY.CARD_NUMBER_THIRD}
           name={FORM_KEY.CARD_NUMBER_THIRD}
           value={values[FORM_KEY.CARD_NUMBER_THIRD]}
           onChange={onChange}
@@ -73,10 +68,10 @@ const CardRegisterNumberInputs = ({
           ref={refs[FORM_KEY.CARD_NUMBER_THIRD]}
           required
         />
-        <Span className={classNames.span} key="span__3">-</Span>
+        <Span key="span__3" styledType={FORM_KEY.CARD_NUMBER}>-</Span>
         <Input
-          className={`${classNames.input}__4`}
           type="number"
+          styledType={FORM_KEY.CARD_NUMBER_FOURTH}
           name={FORM_KEY.CARD_NUMBER_FOURTH}
           value={values[FORM_KEY.CARD_NUMBER_FOURTH]}
           onChange={onChange}

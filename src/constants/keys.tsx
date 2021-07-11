@@ -1,4 +1,4 @@
-const FORM_KEY = {
+export const FORM_KEY = {
   CARD_BANK: 'cardBank',
   CARD_NUMBER: 'cardNumber',
   CARD_NUMBER_FIRST: 'cardNumberFirst',
@@ -14,4 +14,10 @@ const FORM_KEY = {
   SUBMIT_BUTTON: 'cardSubmitButton',
 };
 
-export default FORM_KEY;
+export const CARD_STYLE_TYPE = {
+  COMMON: 'cardPreview',
+  CARD_BANK: 'cardPreviewBank',
+  CARD_NUMBER: 'cardPreviewNumber',
+  CARD_OWNER: 'cardPreviewOwner',
+  CARD_EXPIRATION: 'cardPreviewExpiration',
+};

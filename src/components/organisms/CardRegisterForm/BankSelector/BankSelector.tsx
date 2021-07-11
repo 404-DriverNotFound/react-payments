@@ -12,12 +12,12 @@ const StyledDiv = styled.div`
 `;
 
 export type BankSelectorProps = {
-  className: string,
+  className?: string,
   // eslint-disable-next-line no-unused-vars
   onClick: (event: React.MouseEvent<HTMLDivElement>) => void,
 };
 
-const BankSelector = ({ className, onClick }: BankSelectorProps) => {
+const BankSelector = ({ onClick }: BankSelectorProps) => {
   const bankItems = C.BANK_LIST.map((name) => {
     return (
       <BankItem
@@ -31,14 +31,18 @@ const BankSelector = ({ className, onClick }: BankSelectorProps) => {
 
   return (
     <>
-      <StyledDiv className={className}>
+      <StyledDiv>
         {bankItems.slice(0, 4)}
       </StyledDiv>
-      <StyledDiv className={className}>
+      <StyledDiv>
         {bankItems.slice(4, 8)}
       </StyledDiv>
     </>
   );
+};
+
+BankSelector.defaultProps = {
+  className: '',
 };
 
 export default BankSelector;

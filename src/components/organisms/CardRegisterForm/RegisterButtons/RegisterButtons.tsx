@@ -10,9 +10,9 @@ const StyledDiv = styled.div`
 `;
 
 export type CardRegisterButtonsProps = {
-  classNames: {
-    'submit': string,
-    'cancel': string,
+  classNames?: {
+    submit?: string,
+    cancel?: string,
   },
   refs: {
     [key: string]: React.RefObject<any>,
@@ -29,7 +29,7 @@ const CardRegisterButtons = ({
   return (
     <StyledDiv>
       <Button
-        className={classNames.submit}
+        className={classNames?.submit}
         color="blue"
         type="submit"
         onClick={onSubmit}
@@ -38,13 +38,20 @@ const CardRegisterButtons = ({
         다음
       </Button>
       <Button
-        className={classNames.cancel}
+        className={classNames?.cancel}
         onClick={onCancel}
       >
         취소
       </Button>
     </StyledDiv>
   );
+};
+
+CardRegisterButtons.defaultProps = {
+  classNames: {
+    submit: '',
+    cancel: '',
+  },
 };
 
 export default CardRegisterButtons;

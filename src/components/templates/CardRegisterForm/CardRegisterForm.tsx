@@ -3,7 +3,6 @@ import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
 import { bankTypes } from '../../../constants/cardBanks';
-import FORM_KEY from '../../../constants/keys';
 import Input from '../../atoms/Input/Input';
 import Card from '../../molecules/Card/Card';
 import Modal from '../../molecules/Modal/Modal';
@@ -11,6 +10,7 @@ import BankSelector from '../../organisms/CardRegisterForm/BankSelector/BankSele
 import InputContainer from '../../molecules/InputContainer/InputContainer';
 import CardRegisterNumberInputs from '../../organisms/CardRegisterForm/RegisterNumberInputs/RegisterNumberInputs';
 import CardRegisterButtons from '../../organisms/CardRegisterForm/RegisterButtons/RegisterButtons';
+import { FORM_KEY } from '../../../constants/keys';
 
 const StyledForm = styled.form`
   float: center;
@@ -28,17 +28,13 @@ const InlineBlockDiv = styled.div`
   width: 50%;
 `;
 
-export type CardRegisterFormProps = {
-  className?: string,
-};
-
 export type valueObjType = {
   [key: string]: string,
 };
 
 export type modalContentType = 'BankSelector' | 'VirtualKeyboard';
 
-const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
+const CardRegisterForm = () => {
   // eslint-disable-next-line no-unused-vars
   const [isModalDisplayed, setIsModalDisplayed] = useState(false);
   const [modalContent, setModalContent] = useState<modalContentType>('BankSelector');
@@ -132,6 +128,9 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
 
   const handleOwnerNameChange = (event: React.ChangeEvent) => {
     const { name, value } = event.target as HTMLInputElement;
+    if (value.length > 26) {
+      return;
+    }
     setValues({ ...values, [name]: value });
   };
 
@@ -194,28 +193,22 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
   };
 
   return (
-    <StyledForm className={className}>
+    <StyledForm>
       <Modal
         display={isModalDisplayed}
         onClick={() => { setIsModalDisplayed(false); }}
       >
         {(modalContent === 'BankSelector'
-          ? (<BankSelector className="card-register__bank-selector" onClick={handleBankClick} />)
+          ? (<BankSelector onClick={handleBankClick} />)
           : ('Virtual Keyboard'))}
       </Modal>
       <Card
-        className="card-register__card-preview"
         numbers={renderCardNumbers()}
         owner={values[FORM_KEY.CARD_OWNER]}
         bankName={values[FORM_KEY.CARD_BANK] as bankTypes}
         expiration={values[FORM_KEY.CARD_EXPIRATION]}
       />
       <CardRegisterNumberInputs
-        classNames={{
-          container: 'card-register__input-container--card-number',
-          input: 'card-register__input--card-number',
-          span: 'card-register__span--card-number',
-        }}
         label="카드 번호"
         values={values}
         refs={refs}
@@ -224,11 +217,11 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
       />
       <InlineBlockDiv>
         <label htmlFor="card-expiration">카드 유효기간</label>
-        <InputContainer className="card-register__input-container--card-expiration">
+        <InputContainer styledType={FORM_KEY.CARD_EXPIRATION}>
           <Input
-            className="card-register__input--card-expiration"
             name={FORM_KEY.CARD_EXPIRATION}
             value={values[FORM_KEY.CARD_EXPIRATION]}
+            styledType={FORM_KEY.CARD_EXPIRATION}
             onChange={handleExpirationChange}
             onFocus={handleNonDiscedFocus}
             placeholder="MM/YY"
@@ -239,10 +232,10 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
       </InlineBlockDiv>
       <InlineBlockDiv>
         <label htmlFor="card-cvc">뒷면 보안코드 3자리</label>
-        <InputContainer className="card-register__input-container--card-cvc">
+        <InputContainer styledType={FORM_KEY.CARD_CVC}>
           <Input
-            className="card-register__input--card-cvc"
             type="number"
+            styledType={FORM_KEY.CARD_CVC}
             name={FORM_KEY.CARD_CVC}
             value={values[FORM_KEY.CARD_CVC]}
             placeholder="CVC"
@@ -255,10 +248,10 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
       </InlineBlockDiv>
       <br />
       <label htmlFor="card-owner">카드 소유자 이름</label>
-      <InputContainer className="card-register__input-container--card-owner">
+      <InputContainer styledType={FORM_KEY.CARD_OWNER}>
         <Input
-          className="card-register__input--card-owner"
           type="text"
+          styledType={FORM_KEY.CARD_OWNER}
           name={FORM_KEY.CARD_OWNER}
           value={values[FORM_KEY.CARD_OWNER]}
           onChange={handleOwnerNameChange}
@@ -271,10 +264,10 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
       <label>
         비밀번호 앞 2자리
         <br />
-        <InputContainer className="card-register__input-container--card-password" key="card-password__1">
+        <InputContainer styledType={FORM_KEY.CARD_PASSWORD}>
           <Input
-            className="card-register__input--card-password"
             type="password"
+            styledType={FORM_KEY.CARD_PASSWORD}
             name={FORM_KEY.CARD_PASSWORD_FIRST}
             value={values[FORM_KEY.CARD_PASSWORD_FIRST]}
             onChange={handlePasswordChange}
@@ -283,10 +276,10 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
             required
           />
         </InputContainer>
-        <InputContainer className="card-register__input-container--card-password" key="card-password__2">
+        <InputContainer styledType={FORM_KEY.CARD_PASSWORD}>
           <Input
-            className="card-register__input--card-password"
             type="number"
+            styledType={FORM_KEY.CARD_PASSWORD}
             name={FORM_KEY.CARD_PASSWORD_SECOND}
             value={values[FORM_KEY.CARD_PASSWORD_SECOND]}
             onChange={handlePasswordChange}
@@ -298,10 +291,6 @@ const CardRegisterForm = ({ className }: CardRegisterFormProps) => {
         * *
       </label>
       <CardRegisterButtons
-        classNames={{
-          submit: 'card-register__button--submit',
-          cancel: 'card-register__button--cancel',
-        }}
         refs={refs}
         onSubmit={handleSubmit}
         onCancel={() => {}}

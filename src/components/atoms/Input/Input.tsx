@@ -1,35 +1,33 @@
 /* eslint-disable arrow-body-style */
 import React, { ForwardedRef } from 'react';
 import styled from 'styled-components';
+import { FORM_KEY } from '../../../constants/keys';
 
-const StyledInput = styled.input`
+const StyledInput = styled.input<{ styledType: string | undefined }>`
+  padding: 0;
+  ${({ styledType }) => (styledType?.includes(FORM_KEY.CARD_NUMBER) ? 'flex: 1; line-height: 100%;' : '')}
   border: none;
   outline: none;
   background-color: transparent;
-  text-align: ${({ className }) => (
-    className?.includes('card-register__input--card-owner')
-      ? '' : 'center'
-  )};
-  width: ${({ className }) => {
-    if (className?.includes('card-register__input--card-number')) {
-      return '4em';
-    } if (className?.includes('card-register__input--card-password')) {
-      return '1em';
-    } if (className?.includes('card-register__input--card-cvc')) {
-      return '3em';
-    } if (className?.includes('card-register__input--card-expiration')) {
-      return '5em';
-    } if (className?.includes('card-register__input--card-owner')) {
-      return '100%';
+  text-align: ${({ styledType }) => (styledType === FORM_KEY.CARD_OWNER ? '' : 'center')};
+  width: ${({ styledType }) => {
+    switch (styledType) {
+      case FORM_KEY.CARD_EXPIRATION:
+        return '5em';
+      case FORM_KEY.CARD_CVC:
+        return '3em';
+      case FORM_KEY.CARD_PASSWORD:
+        return '1em';
+      default:
+        return '100%';
     }
-    return '';
   }};
 
-  -webkit-text-security: ${({ className }) => (
-    (className?.includes('card-register__input--card-number__3')
-    || className?.includes('card-register__input--card-number__4')
-    || className?.includes('card-register__input--card-password')
-    || className?.includes('card-register__input--card-cvc'))
+  -webkit-text-security: ${({ styledType }) => (
+    (styledType === FORM_KEY.CARD_NUMBER_THIRD
+    || styledType === FORM_KEY.CARD_NUMBER_FOURTH
+    || styledType === FORM_KEY.CARD_CVC
+    || styledType === FORM_KEY.CARD_PASSWORD)
       ? 'disc' : ''
   )};
   
@@ -46,6 +44,7 @@ const StyledInput = styled.input`
 export type InputProps = {
   className?: string,
   type?: string,
+  styledType?: string,
   name?: string,
   value?: string,
   // eslint-disable-next-line no-unused-vars
@@ -58,13 +57,15 @@ export type InputProps = {
 };
 
 const Input = React.forwardRef(({
-  className, type, name, value, onFocus, onChange, placeholder, required, autoFocus, ...rest
+  className, type, styledType, name, value,
+  onFocus, onChange, placeholder, required, autoFocus, ...rest
 }: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
   return (
     <StyledInput
       className={className}
       ref={ref}
       type={type}
+      styledType={styledType}
       name={name}
       value={value}
       onChange={onChange}
@@ -81,6 +82,7 @@ Input.defaultProps = {
   className: '',
   name: '',
   type: 'text',
+  styledType: '',
   value: '',
   onChange: () => {},
   onFocus: () => {},
