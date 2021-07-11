@@ -2,17 +2,17 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import Modal, { ModalProps } from './Modal';
+import Key, { KeyProps } from './Key';
 
 export default {
-  component: Modal,
-  title: 'molecules/Modal',
+  component: Key,
+  title: 'molecules/Key',
 } as Meta;
 
-const Template: Story<ModalProps> = (args) => <Modal {...args} />;
+const Template: Story<KeyProps> = (args) => <Key {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  display: true,
-  children: 'modal contents',
+  children: '0',
+  onClick: () => { console.log('clicked'); },
 };

@@ -24,7 +24,7 @@ export type CardRegisterNumberInputsProps = {
   // eslint-disable-next-line no-unused-vars
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
   // eslint-disable-next-line no-unused-vars
-  onFocus: (event: React.FocusEvent<HTMLInputElement>) => void,
+  onFocus: (target: string) => void,
 }
 
 const CardRegisterNumberInputs = ({
@@ -63,7 +63,7 @@ const CardRegisterNumberInputs = ({
           name={FORM_KEY.CARD_NUMBER_THIRD}
           value={values[FORM_KEY.CARD_NUMBER_THIRD]}
           onChange={onChange}
-          onFocus={onFocus}
+          onFocus={() => { onFocus(FORM_KEY.CARD_NUMBER_THIRD); }}
           key="input__3"
           ref={refs[FORM_KEY.CARD_NUMBER_THIRD]}
           required
@@ -75,7 +75,7 @@ const CardRegisterNumberInputs = ({
           name={FORM_KEY.CARD_NUMBER_FOURTH}
           value={values[FORM_KEY.CARD_NUMBER_FOURTH]}
           onChange={onChange}
-          onFocus={onFocus}
+          onFocus={() => { onFocus(FORM_KEY.CARD_NUMBER_FOURTH); }}
           key="input__4"
           ref={refs[FORM_KEY.CARD_NUMBER_FOURTH]}
           required

@@ -1,5 +1,6 @@
+/* eslint-disable arrow-body-style */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { bankTypes } from '../../../constants/cardBanks';
@@ -10,12 +11,13 @@ import BankSelector from '../../organisms/CardRegisterForm/BankSelector/BankSele
 import InputContainer from '../../molecules/InputContainer/InputContainer';
 import CardRegisterNumberInputs from '../../organisms/CardRegisterForm/RegisterNumberInputs/RegisterNumberInputs';
 import CardRegisterButtons from '../../organisms/CardRegisterForm/RegisterButtons/RegisterButtons';
+import VirtualKeyboard from '../../organisms/VirtualKeyboard/VirtualKeyboard';
 import { FORM_KEY } from '../../../constants/keys';
 
 const StyledForm = styled.form`
   float: center;
-  min-width: 22em;
-  max-width: 30em;
+  min-width: 16rem;
+  max-width: 30rem;
   background-color: #fff;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.25);
   border-radius: 1rem;
@@ -32,12 +34,10 @@ export type valueObjType = {
   [key: string]: string,
 };
 
-export type modalContentType = 'BankSelector' | 'VirtualKeyboard';
-
 const CardRegisterForm = () => {
   // eslint-disable-next-line no-unused-vars
   const [isModalDisplayed, setIsModalDisplayed] = useState(false);
-  const [modalContent, setModalContent] = useState<modalContentType>('BankSelector');
+  const [modalContent, setModalContent] = useState<React.ReactElement>();
   const [values, setValues] = useState<valueObjType>({
     [FORM_KEY.CARD_BANK]: '',
     [FORM_KEY.CARD_NUMBER]: '',
@@ -69,32 +69,135 @@ const CardRegisterForm = () => {
     [FORM_KEY.SUBMIT_BUTTON]: useRef<HTMLButtonElement>(null),
   };
 
-  const handleCardNumberChange = (event: React.ChangeEvent) => {
-    const { name, value } = event.target as HTMLInputElement;
-    if (value.length > 4) {
+  const renderCardNumbers = () => {
+    const disced3 = String().padEnd(values[FORM_KEY.CARD_NUMBER_THIRD].length, '*');
+    const disced4 = String().padEnd(values[FORM_KEY.CARD_NUMBER_FOURTH].length, '*');
+    return `${values[FORM_KEY.CARD_NUMBER_FIRST]} ${values[FORM_KEY.CARD_NUMBER_SECOND]} ${disced3} ${disced4}`;
+  };
+
+  useEffect(() => {
+    if (values[FORM_KEY.CARD_NUMBER_SECOND].length === 4) {
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      setModalContent(renderBankSelector());
+      setIsModalDisplayed(true);
+    }
+  }, [values[FORM_KEY.CARD_NUMBER_SECOND]]);
+
+  useEffect(() => {
+    if (values[FORM_KEY.CARD_BANK]) {
+      if (values[FORM_KEY.CARD_NUMBER_THIRD].length === 4) {
+        return;
+      }
+      refs[FORM_KEY.CARD_NUMBER_THIRD].current?.focus();
+    }
+  }, [values[FORM_KEY.CARD_BANK]]);
+
+  useEffect(() => {
+    if (!values[FORM_KEY.CARD_NUMBER_THIRD]) {
+      return;
+    } if (values[FORM_KEY.CARD_NUMBER_THIRD].length === 4) {
+      setIsModalDisplayed(true);
+      refs[FORM_KEY.CARD_NUMBER_FOURTH].current?.focus();
       return;
     }
-    if (value.length === 4) {
-      if (name === FORM_KEY.CARD_NUMBER_FIRST) {
-        refs[FORM_KEY.CARD_NUMBER_SECOND].current?.focus();
-      } else if (name === FORM_KEY.CARD_NUMBER_SECOND) {
-        setValues({ ...values, [name]: value });
-        setModalContent('BankSelector');
-        setIsModalDisplayed(true);
-      } else if (name === FORM_KEY.CARD_NUMBER_THIRD) {
-        refs[FORM_KEY.CARD_NUMBER_FOURTH].current?.focus();
-      } else if (name === FORM_KEY.CARD_NUMBER_FOURTH) {
-        refs[FORM_KEY.CARD_EXPIRATION].current?.focus();
-      }
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    setModalContent(renderKeyboard(FORM_KEY.CARD_NUMBER_THIRD));
+  }, [values[FORM_KEY.CARD_NUMBER_THIRD]]);
+
+  useEffect(() => {
+    if (!values[FORM_KEY.CARD_NUMBER_FOURTH]) {
+      return;
+    } if (values[FORM_KEY.CARD_NUMBER_FOURTH].length === 4) {
+      setIsModalDisplayed(false);
+      refs[FORM_KEY.CARD_EXPIRATION].current?.focus();
+      return;
     }
-    setValues({ ...values, [name]: value });
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    setModalContent(renderKeyboard(FORM_KEY.CARD_NUMBER_FOURTH));
+  }, [values[FORM_KEY.CARD_NUMBER_FOURTH]]);
+
+  useEffect(() => {
+    if (values[FORM_KEY.CARD_EXPIRATION].length === 5) {
+      refs[FORM_KEY.CARD_CVC].current?.focus();
+    }
+  }, [values[FORM_KEY.CARD_EXPIRATION]]);
+
+  useEffect(() => {
+    if (!values[FORM_KEY.CARD_CVC]) {
+      return;
+    } if (values[FORM_KEY.CARD_CVC].length === 3) {
+      setIsModalDisplayed(false);
+      refs[FORM_KEY.CARD_OWNER].current?.focus();
+      return;
+    }
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    setModalContent(renderKeyboard(FORM_KEY.CARD_CVC));
+  }, [values[FORM_KEY.CARD_CVC]]);
+
+  useEffect(() => {
+    if (!values[FORM_KEY.CARD_PASSWORD_FIRST]) {
+      return;
+    } if (values[FORM_KEY.CARD_PASSWORD_FIRST].length === 1) {
+      setIsModalDisplayed(false);
+      refs[FORM_KEY.CARD_PASSWORD_SECOND].current?.focus();
+      return;
+    }
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    setModalContent(renderKeyboard(FORM_KEY.CARD_PASSWORD_FIRST));
+  }, [values[FORM_KEY.CARD_PASSWORD_FIRST]]);
+
+  useEffect(() => {
+    if (!values[FORM_KEY.CARD_PASSWORD_SECOND]) {
+      return;
+    } if (values[FORM_KEY.CARD_PASSWORD_SECOND].length === 1) {
+      setIsModalDisplayed(false);
+      refs[FORM_KEY.SUBMIT_BUTTON].current?.focus();
+      return;
+    }
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    setModalContent(renderKeyboard(FORM_KEY.CARD_PASSWORD_SECOND));
+  }, [values[FORM_KEY.CARD_PASSWORD_SECOND]]);
+
+  const handleVirtualKeyboardClick = (event: React.MouseEvent, target: string) => {
+    const { dataset } = event.target as HTMLDivElement;
+    if (values[target].length === 4) {
+      return;
+    }
+    setValues({ ...values, [target]: `${values[target]}${dataset.content}` });
   };
+
+  function renderKeyboard(target: string) {
+    return (
+      <VirtualKeyboard
+        className="card-register__keyboard"
+        onClick={(e) => handleVirtualKeyboardClick(e, target)}
+      />
+    );
+  }
 
   const handleBankClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const { dataset } = event.target as HTMLDivElement;
     setValues({ ...values, [FORM_KEY.CARD_BANK]: dataset.name! });
     setIsModalDisplayed(false);
-    refs[FORM_KEY.CARD_NUMBER_THIRD].current?.focus();
+  };
+
+  const renderBankSelector = () => {
+    return (
+      <BankSelector
+        className="card-register__bank-selector"
+        onClick={handleBankClick}
+      />
+    );
+  };
+
+  const handleCardNumberChange = (event: React.ChangeEvent) => {
+    const { name, value } = event.target as HTMLInputElement;
+    if (value.length > 4) {
+      return;
+    } if (value.length === 4 && name === FORM_KEY.CARD_NUMBER_FIRST) {
+      refs[FORM_KEY.CARD_NUMBER_SECOND].current?.focus();
+    }
+    setValues({ ...values, [name]: value });
   };
 
   const handleExpirationChange = (event: React.ChangeEvent) => {
@@ -110,8 +213,6 @@ const CardRegisterForm = () => {
     } if (value.length === 3 && values[name].length === 4) {
       setValues({ ...values, [name]: value.substr(0, 2) });
       return;
-    } if (value.length === 5) {
-      refs[FORM_KEY.CARD_CVC].current?.focus();
     }
     setValues({ ...values, [name]: value });
   };
@@ -120,8 +221,6 @@ const CardRegisterForm = () => {
     const { name, value } = event.target as HTMLInputElement;
     if (value.length > 3) {
       return;
-    } if (value.length === 3) {
-      refs[FORM_KEY.CARD_OWNER].current?.focus();
     }
     setValues({ ...values, [name]: value });
   };
@@ -139,17 +238,11 @@ const CardRegisterForm = () => {
     if (value.length > 1) {
       return;
     }
-    if (name === FORM_KEY.CARD_PASSWORD_FIRST) {
-      refs[FORM_KEY.CARD_PASSWORD_SECOND].current?.focus();
-    } else {
-      setIsModalDisplayed(false);
-      refs[FORM_KEY.SUBMIT_BUTTON].current?.focus();
-    }
     setValues({ ...values, [name]: value });
   };
 
-  const handleDiscedFocus = () => {
-    setModalContent('VirtualKeyboard');
+  const handleDiscedFocus = (target: string) => {
+    setModalContent(renderKeyboard(target));
     setIsModalDisplayed(true);
   };
 
@@ -186,21 +279,14 @@ const CardRegisterForm = () => {
     // TODO: 제출 처리
   };
 
-  const renderCardNumbers = () => {
-    const disced3 = String().padEnd(values[FORM_KEY.CARD_NUMBER_THIRD].length, '*');
-    const disced4 = String().padEnd(values[FORM_KEY.CARD_NUMBER_FOURTH].length, '*');
-    return `${values[FORM_KEY.CARD_NUMBER_FIRST]} ${values[FORM_KEY.CARD_NUMBER_SECOND]} ${disced3} ${disced4}`;
-  };
-
   return (
     <StyledForm>
       <Modal
         display={isModalDisplayed}
+        // eslint-disable-next-line no-unused-expressions
         onClick={() => { setIsModalDisplayed(false); }}
       >
-        {(modalContent === 'BankSelector'
-          ? (<BankSelector onClick={handleBankClick} />)
-          : ('Virtual Keyboard'))}
+        {modalContent}
       </Modal>
       <Card
         numbers={renderCardNumbers()}
@@ -213,7 +299,7 @@ const CardRegisterForm = () => {
         values={values}
         refs={refs}
         onChange={handleCardNumberChange}
-        onFocus={handleDiscedFocus}
+        onFocus={(target: string) => { handleDiscedFocus(target); }}
       />
       <InlineBlockDiv>
         <label htmlFor="card-expiration">카드 유효기간</label>
@@ -240,7 +326,7 @@ const CardRegisterForm = () => {
             value={values[FORM_KEY.CARD_CVC]}
             placeholder="CVC"
             onChange={handleCVCChange}
-            onFocus={handleDiscedFocus}
+            onFocus={() => { handleDiscedFocus(FORM_KEY.CARD_CVC); }}
             ref={refs[FORM_KEY.CARD_CVC]}
             required
           />
@@ -271,7 +357,7 @@ const CardRegisterForm = () => {
             name={FORM_KEY.CARD_PASSWORD_FIRST}
             value={values[FORM_KEY.CARD_PASSWORD_FIRST]}
             onChange={handlePasswordChange}
-            onFocus={handleDiscedFocus}
+            onFocus={() => { handleDiscedFocus(FORM_KEY.CARD_PASSWORD_FIRST); }}
             ref={refs[FORM_KEY.CARD_PASSWORD_FIRST]}
             required
           />
@@ -283,7 +369,7 @@ const CardRegisterForm = () => {
             name={FORM_KEY.CARD_PASSWORD_SECOND}
             value={values[FORM_KEY.CARD_PASSWORD_SECOND]}
             onChange={handlePasswordChange}
-            onFocus={handleDiscedFocus}
+            onFocus={() => { handleDiscedFocus(FORM_KEY.CARD_PASSWORD_SECOND); }}
             ref={refs[FORM_KEY.CARD_PASSWORD_SECOND]}
             required
           />

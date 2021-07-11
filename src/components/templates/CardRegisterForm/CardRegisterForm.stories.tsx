@@ -1,16 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
-import CardRegisterForm, { CardRegisterFormProps } from './CardRegisterForm';
+import { Meta } from '@storybook/react';
+import CardRegisterForm from './CardRegisterForm';
 
 export default {
   component: CardRegisterForm,
   title: 'templates/CardRegisterForm',
 } as Meta;
 
-const Template: Story<CardRegisterFormProps> = (args) => (<CardRegisterForm {...args} />);
+const Template = () => (<CardRegisterForm />);
 
 export const Default = Template.bind({});
-Default.args = {
-  className: '',
-};
