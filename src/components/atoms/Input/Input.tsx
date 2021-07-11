@@ -5,7 +5,8 @@ import { FORM_KEY } from '../../../constants/keys';
 
 const StyledInput = styled.input<{ styledType: string | undefined }>`
   padding: 0;
-  ${({ styledType }) => (styledType?.includes(FORM_KEY.CARD_NUMBER) ? 'flex: 1; line-height: 100%;' : '')}
+  flex: 1;
+  line-height: 100%;
   border: none;
   outline: none;
   background-color: transparent;

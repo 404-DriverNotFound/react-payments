@@ -15,9 +15,9 @@ const StyledItem = styled.div`
 `;
 
 const Circle = styled.div`
-  width: 5em;
-  height: 5em;
-  border-radius: 2.5em;
+  width: 10vmin;
+  height: 10vmin;
+  border-radius: 5vmin;
   margin: 0.5em auto;
   cursor: pointer;
   background-color: ${({ color }) => color};

@@ -1,6 +1,5 @@
-/* eslint-disable no-use-before-define */
+/* eslint-disable no-console */
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import BankItem, { BankItemProps } from './BankItem';

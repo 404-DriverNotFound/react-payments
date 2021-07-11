@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { FORM_KEY } from '../../../constants/keys';
 
 const StyledDiv = styled.div<{ styledType: string | undefined }>`
-  ${({ styledType }) => (styledType?.includes(FORM_KEY.CARD_NUMBER) ? 'display: flex;' : '')}
+  display: flex;
   padding: 0.75em 1em;
   border-radius: 0.75rem;
   background-color: #eee;

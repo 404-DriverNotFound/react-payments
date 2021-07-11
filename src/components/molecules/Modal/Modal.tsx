@@ -34,7 +34,7 @@ const StyledModal = styled.div<{ display: string }>`
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 20rem;
+  height: 50vh;
   border-radius: 3em 3em 0 0;
   background-color: #fff;
   z-index: 9999;

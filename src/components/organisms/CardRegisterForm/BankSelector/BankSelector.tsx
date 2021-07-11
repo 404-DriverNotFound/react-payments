@@ -7,7 +7,7 @@ import BankItem from '../../../molecules/BankItem/BankItem';
 
 const StyledDiv = styled.div`
   display: flex;
-  width: 30em;
+  width: 80%;
   margin: 1em auto;
 `;
 
